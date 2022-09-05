@@ -1,14 +1,17 @@
 @push('title', 'Editar usuário')
 
 <form wire:submit.prevent="submit">
-    {{ $this->form }}
+    <div class="mb-6">
+        {{ $this->form }}
+    </div>
 
     <x-button
-        class="mt-4"
+        class="w-full sm:w-auto"
         type="submit"
         spinner="submit"
+        icon="check"
         positive
     >
-        Editar usuário
+        Concluir edição
     </x-button>
 </form>

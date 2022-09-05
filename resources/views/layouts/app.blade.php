@@ -40,35 +40,26 @@
     @stack('scripts')
 </head>
 
-<body class="antialiased">
+<body x-data="drawer()">
     @auth
-        <main class="flex min-h-screen flex-col items-center">
-            <!-- Botão Drawer Tablet/Desktop -->
-            <div class="fixed top-[50%] -left-2 z-30 hidden md:block">
-                <button
-                    data-drawer-target="drawer"
-                    data-drawer-show="drawer"
-                    data-drawer-placement="left"
-                    class="flex items-center justify-end rounded-r-full border-2 border-gray-200 bg-white p-2 shadow dark:border-gray-700 dark:bg-gray-800"
-                >
-                    <x-icon
-                        name="arrow-right"
-                        class="h-5 w-5"
-                    />
-                </button>
-            </div>
-            <!-- Botão Drawer Tablet/Desktop -->
-
-            <x-drawer />
+        <x-drawer />
+        <div
+            class="h-full flex flex-1 flex-col transition md:translate-x-0 md:ml-80"
+            :class="{ 'translate-x-8': showDrawer }"
+        >
 
             <x-header />
+
+            <div class="w-full flex-none px-4 sm:px-8">{{ Breadcrumbs::render() }}</div>
             
-            <div class="flex w-full max-w-screen-xl flex-1 p-4 sm:mx-auto md:p-6">
-                <div class="w-full rounded-md bg-white p-4 shadow-lg dark:bg-gray-800 md:p-6">
-                    {{ $slot }}
-                </div>
+            <div class="flex flex-col flex-1 m-4 sm:m-8 gap-8">
+                <h2 class="w-full flex-none text-3xl font-extrabold tracking-tight">
+                    @stack('title')
+                </h2>
+                {{ $slot }}
             </div>
-        </main>
+
+        </div>
     @endauth
 
     @guest

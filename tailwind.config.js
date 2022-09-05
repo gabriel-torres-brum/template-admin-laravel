@@ -7,7 +7,6 @@ module.exports = {
     './vendor/wireui/wireui/ts/**/*.ts',
     './vendor/wireui/wireui/src/View/**/*.php',
     './vendor/filament/**/*.blade.php',
-    "./node_modules/flowbite/**/*.js"
   ],
   presets: [
     require('./vendor/wireui/wireui/tailwind.config.js')
@@ -16,6 +15,8 @@ module.exports = {
     extend: {
       colors: {
         danger: colors.rose,
+        secondary: colors.zinc,
+        gray: colors.zinc,
         primary: colors.blue,
         success: colors.green,
         warning: colors.yellow,
@@ -23,8 +24,7 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('flowbite/plugin')
+    require('@tailwindcss/forms'),
   ],
 }

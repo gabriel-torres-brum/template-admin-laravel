@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "ext-pdo_sqlite": "*",
+        "diglactic/laravel-breadcrumbs": "^8.0",
         "filament/notifications": "^2.15",
         "filament/tables": "^2.15",
         "guzzlehttp/guzzle": "^7.2",
@@ -13,8 +15,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
-        "wireui/wireui": "^1.14",
-        "ext-pdo_sqlite": "*"
+        "wireui/wireui": "^1.14"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

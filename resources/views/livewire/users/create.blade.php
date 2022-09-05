@@ -1,14 +1,19 @@
-@push('title', 'Criar usuário')
+@push('title', 'Incluir usuário')
 
 <form wire:submit.prevent="submit">
-    {{ $this->form }}
+    <div class="mb-6">
+        {{ $this->form }}
+    </div>
 
-    <x-button
-        class="mt-4"
-        type="submit"
-        spinner="submit"
-        positive
-    >
-        Adicionar usuário
-    </x-button>
+    <div class="flex gap-4">
+        <x-button
+            class="mt-4"
+            type="submit"
+            spinner="submit"
+            icon="check"
+            positive
+        >
+            Novo usuário
+        </x-button>
+    </div>
 </form>

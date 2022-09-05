@@ -21,9 +21,9 @@ class Edit extends Component implements Forms\Contracts\HasForms
         return $this->user;
     }
 
-    public function mount($id): void
+    public function mount($user): void
     {
-        $this->user = User::findOrFail($id);
+        $this->user = $user;
 
         $this->form->fill([
             'name' => $this->user->name,

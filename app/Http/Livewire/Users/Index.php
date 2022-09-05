@@ -42,7 +42,7 @@ class Index extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Actions\EditAction::make('editar')
                 ->icon('heroicon-o-pencil')
-                ->url(fn (User $record): string => route('users.edit', ['id' => $record->id])),
+                ->url(fn (User $record): string => route('users.edit', ['user' => $record])),
             Tables\Actions\DeleteAction::make('excluir')
                 ->hidden(fn (User $record) => $record->id === 1)
                 ->modalHeading('Excluir usuário')

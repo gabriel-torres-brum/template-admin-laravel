@@ -29,7 +29,7 @@
                     {{ $slot }}
                 </div>
             </form>
-            
+
         </div>
 
         {{ $foot }}

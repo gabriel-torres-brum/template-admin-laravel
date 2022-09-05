@@ -1,8 +1,8 @@
-@push('title', 'Painel')
+@push('title', 'Início')
 
-<x-app-layout>
-    <span class="text-base">
-        Bem vindo(a), <strong class="font-bold">{{ auth()->user()->name }}</strong>
+<div>
+    <span class="text-lg">
+        {{ $dashboardText }}
     </span>
     <div class="mt-2 mb-6"></div>
     <div class="grid grid-cols-12 gap-4">
@@ -24,4 +24,4 @@
             </x-slot>
         </x-dashboard-card> --}}
     </div>
-</x-app-layout>
+</div>

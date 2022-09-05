@@ -33,11 +33,11 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', fn() => view('dashboard'))->name('dashboard');
+    Route::get('/', Livewire\Dashboard::class)->name('dashboard');
     
     Route::middleware('isAdmin')->group(function () {
         Route::get('usuarios', Livewire\Users\Index::class)->name('users.index');
-        Route::get('usuarios/editar/{id}', Livewire\Users\Edit::class)->name('users.edit');
+        Route::get('usuarios/editar/{user}', Livewire\Users\Edit::class)->name('users.edit');
         Route::get('usuarios/adicionar', Livewire\Users\Create::class)->name('users.create');
     });
 

@@ -1,3 +1,3 @@
-<h5 class="text-2xl">
+<h5 class="text-xl">
     Logo
 </h5>
