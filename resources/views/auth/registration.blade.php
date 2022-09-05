@@ -83,7 +83,6 @@
             <x-button
                 label="Enviar"
                 type="submit"
-                outline
                 primary
             />
         </div>

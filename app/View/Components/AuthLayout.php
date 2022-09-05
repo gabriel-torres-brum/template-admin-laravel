@@ -7,15 +7,19 @@ use Illuminate\View\Component;
 class AuthLayout extends Component
 {
     public string $formActionRoute;
+    public ?string $head;
+    public ?string $foot;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($formActionRoute)
+    public function __construct($formActionRoute, $head = null, $foot = null)
     {
         $this->formActionRoute = $formActionRoute;
+        $this->head = $head;
+        $this->foot = $foot;
     }
 
     /**

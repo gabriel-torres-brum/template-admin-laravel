@@ -37,18 +37,18 @@
             <x-button
                 label="Acessar"
                 type="submit"
-                outline
                 primary
             />
         </div>
-        <hr class="col-span-12 border-gray-300 dark:border-gray-700">
-        <div class="col-span-12 mt-2 flex items-center justify-center gap-4">
-            <a
-                class="text-primary-500 text-sm hover:underline"
-                href="{{ route('auth.registration.index') }}"
-            >
-                Cadastre-se aqui
-            </a>
-        </div>
+        <x-slot name="foot">
+            <div class="flex items-center justify-center gap-4 my-4">
+                <a
+                    class="text-primary-500 text-sm hover:underline"
+                    href="{{ route('auth.registration.index') }}"
+                >
+                    Ainda não tem cadastro?
+                </a>
+            </div>
+        </x-slot>
     </x-auth-layout>
 </x-app-layout>
