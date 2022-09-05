@@ -1,22 +1,13 @@
-# Desafio desenvolvedor PHP (Jr/Pleno/Sênior)
+# Template para início de sistema com painel de administrador/usuário em laravel
 ##### Desenvolvido por Gabriel Torres Brum
 &ensp;
-## ✨  Instruções para visualização do projeto
+## ✨  Instruções para visualização do template
 
 ##### Crie o arquivo de variável de ambiente
 ```sh
     cp .env.example .env
 ```
-##### Configure para utilizar sqlite 
-Crie o arquivo database.sqlite em database/database.sqlite
-```sh
-    DB_CONNECTION=sqlite
-    # DB_HOST=127.0.0.1
-    # DB_PORT=3306
-    # DB_DATABASE=desafio_oliveira_trust
-    # DB_USERNAME=root
-    # DB_PASSWORD=
-```
+
 ##### Instale as dependências
 ```sh
     composer install
@@ -29,18 +20,18 @@ Crie o arquivo database.sqlite em database/database.sqlite
     php artisan migrate:fresh --seed
 ```
 
-##### Execute o comando para limpar o cache e otimizar o projeto
+##### Execute o comando para limpar o cache e otimizar o template
 ```sh
     php artisan optimize:clear
     php artisan optimize
 ```
 
-##### Execute o projeto localmente
+##### Execute o template localmente
 ```sh
     php artisan serve
 ```
 
-##### Acesse o projeto em http://localhost:8000
+##### Acesse o template em http://localhost:8000
 &nbsp;
 ##### Usuários para testes
 ###### Administrador
