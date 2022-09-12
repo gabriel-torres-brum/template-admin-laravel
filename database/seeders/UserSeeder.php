@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
             'name' => 'Administrador do Sistema',
             'email' => 'admin@email.com',
             'password' => bcrypt('12345678'),
-            'admin' => true
         ]);
 
         \App\Models\User::create([
@@ -27,7 +26,6 @@ class UserSeeder extends Seeder
             'name' => 'Usuário do Sistema',
             'email' => 'user@email.com',
             'password' => bcrypt('12345678'),
-            'admin' => false
         ]);
     }
 }
