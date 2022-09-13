@@ -15,7 +15,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     {
         return [
             'id',
-            'cnpj'
+            'cnpj',
         ];
     }
 }

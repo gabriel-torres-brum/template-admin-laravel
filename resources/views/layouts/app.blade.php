@@ -26,8 +26,9 @@
     >
 
     <script>
-        if (localStorage._x_darkMode === 'true' || (!('_x_darkMode' in localStorage) && window.matchMedia(
-                '(prefers-color-scheme: dark)').matches)) {
+        if (localStorage._x_darkMode === 'true' || (!('_x_darkMode' in
+                localStorage) && window.matchMedia(
+                    '(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add("dark")
         } else {
             document.documentElement.classList.remove("dark")
@@ -41,30 +42,8 @@
 </head>
 
 <body x-data="drawer()">
-    @auth
-        <x-drawer />
-        <div
-            class="h-full flex flex-1 flex-col transition md:translate-x-0 md:ml-80"
-            :class="{ 'translate-x-8': showDrawer }"
-        >
 
-            <x-header />
-
-            <div class="w-full flex-none px-4 sm:px-8">{{ Breadcrumbs::render() }}</div>
-            
-            <div class="flex flex-col flex-1 m-4 sm:m-8 gap-8">
-                <h2 class="w-full flex-none text-3xl font-extrabold tracking-tight">
-                    @stack('title')
-                </h2>
-                {{ $slot }}
-            </div>
-
-        </div>
-    @endauth
-
-    @guest
-        {{ $slot }}
-    @endguest
+    {{ $slot }}
 
     @livewireScripts
     @livewire('notifications')

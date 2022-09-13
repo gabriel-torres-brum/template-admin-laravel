@@ -1,3 +1,3 @@
-<h5 class="text-xl">
+<h5 {{ $attributes->merge(['class' => 'text-xl']) }}>
     Logo
 </h5>

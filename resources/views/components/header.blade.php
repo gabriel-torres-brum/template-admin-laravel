@@ -1,21 +1,30 @@
 <header class="w-full">
-    <nav class="flex h-24 items-center border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-        <div class="mx-auto flex flex-1 flex-wrap items-center justify-between px-4 py-2.5 md:px-8">
+    <nav
+        class="flex h-24 items-center border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+        <div
+            class="mx-auto flex flex-1 flex-wrap items-center justify-between px-4 py-2.5 md:px-8">
             <div class="flex items-center gap-4">
                 <x-button.circle
                     class="h-5 w-5 md:hidden"
                     x-on:click="toggleDrawer()"
                     icon="menu"
                 />
-                <a href="{{ route('dashboard') }}">
-                    <x-app-logo />
+                <a
+                    class="uppercase"
+                    href="{{ route('dashboard') }}"
+                >
+                    @if (tenant())
+                        {{ tenant()->id }}
+                    @else
+                        Administração
+                    @endif
                 </a>
             </div>
-            <div
-                class="flex-1 flex items-center justify-end"
-                x-data="{ userDropdown: false }"
-            >
-                <div class="relative flex items-center gap-3 md:order-2">
+            <div class="flex flex-1 items-center justify-end">
+                <div
+                    class="relative flex items-center gap-3 md:order-2"
+                    x-data="{ userDropdown: false }"
+                >
 
                     <span class="hidden text-base font-bold sm:inline-block">
                         {{ auth()->user()->name }}
@@ -34,11 +43,14 @@
                         x-show="userDropdown"
                     >
                         <div class="py-3 px-4">
-                            <span class="block text-sm text-gray-900 dark:text-white">
+                            <span
+                                class="block text-sm text-gray-900 dark:text-white"
+                            >
                                 {{ auth()->user()->name }}
                             </span>
                             <span
-                                class="block truncate text-sm font-medium text-gray-500 dark:text-gray-400">{{ auth()->user()->email }}
+                                class="block truncate text-sm font-medium text-gray-500 dark:text-gray-400"
+                            >{{ auth()->user()->email }}
                             </span>
                         </div>
                         <ul class="py-1">
@@ -73,20 +85,18 @@
                                     </x-slot>
                                 </x-dropdown-menu-link>
                             </li>
-                            @if (auth()->user()->admin)
-                                <li>
-                                    <x-dropdown-menu-link
-                                        label="Usuários"
-                                        route="users.index"
-                                        routeIs="users.*"
-                                    />
-                                </li>
-                            @endif
                             <li>
-                                <x-dropdown-menu-link
-                                    label="Sair"
-                                    route="auth.logout"
-                                />
+                                <x-dropdown-menu-link :route="tenant() ? 'logout' : 'admin.logout'">
+                                    <x-slot name="label">
+                                        <div class="flex items-center gap-2">
+                                            <x-icon
+                                                class="h-5 w-5"
+                                                name="logout"
+                                            />
+                                            <span>Sair</span>
+                                        </div>
+                                    </x-slot>
+                                </x-dropdown-menu-link>
                             </li>
                         </ul>
                     </div>

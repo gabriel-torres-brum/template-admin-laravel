@@ -14,6 +14,10 @@ class CentralUserSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\User::create([
+            'name' => 'Administrador',
+            'email' => 'admin@email.com',
+            'password' => bcrypt('12345678'),
+        ]);
     }
 }

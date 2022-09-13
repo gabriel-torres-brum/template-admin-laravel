@@ -6,7 +6,7 @@
 
     @isset($dropdown)
         <button
-            class="group flex w-full items-center rounded-lg p-2 text-base font-normal text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 @if(request()->routeIs($route)) bg-gray-100 dark:bg-gray-700 @endif"
+            class="group flex w-full items-center rounded-lg border-2 border-gray-200 dark:border-gray-700 p-2 text-base font-normal transition duration-300 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 @if(request()->routeIs($route)) bg-gray-100 dark:bg-gray-700 @endif"
             type="button"
             x-on:click="dropdown = ! dropdown"
         >
@@ -33,12 +33,13 @@
         </ul>
     @else
         <a
-            class="flex items-center rounded-lg p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            class="flex items-center rounded-lg p-2 text-base font-normal hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 border-2 border-gray-200 dark:border-gray-700 transition duration-300 @if(request()->routeIs($route)) bg-gray-100 dark:bg-gray-700 @endif"
             href="{{ route($route) }}"
         >
             <x-icon
                 class="h-6 w-6"
                 name="{{ $icon }}"
+                solid
             />
             <span class="ml-3">{{ $label }}</span>
         </a>

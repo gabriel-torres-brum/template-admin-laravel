@@ -14,8 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            // UserSeeder::class,
-        ]);
+        if (tenant()) {
+            $this->call([
+                UserSeeder::class,
+            ]);
+        } else {
+            $this->call([
+                TenantSeeder::class,
+                CentralUserSeeder::class
+            ]);
+        }
     }
 }
