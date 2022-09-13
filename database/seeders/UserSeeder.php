@@ -14,10 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::create([
-            'name' =>  tenant()->id . ' user',
-            'email' => tenant()->id . '@email.com',
-            'password' => bcrypt('12345678'),
-        ]);
+        //
     }
 }

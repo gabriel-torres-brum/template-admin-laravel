@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CentralUserSeeder extends Seeder
+class EcclesiasticalRoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,6 @@ class CentralUserSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory()->create([
-            'name' => 'Administrador',
-            'email' => 'admin@email.com',
-        ]);
+        \App\Models\EcclesiasticalRole::factory(5);
     }
 }
