@@ -3,10 +3,12 @@
 <x-app-layout>
     <x-tenant.auth-layout formActionRoute="{{ route('login.handle') }}">
         <x-slot name="head">
-            <div class="col-span-12 mb-4 flex flex-col gap-1">
+            <div class="text-2xl border-b-2 border-gray-200 dark:border-gray-700 pb-2 mb-4">
+                {{ tenant()->id }}
+            </div>
+            <div class="mb-4 flex flex-col gap-1 text-center">
                 <h3 class="text-xl font-bold">Login</h3>
-                <small class="text-xs">Insira suas credenciais para
-                    continuar.</small>
+                <small class="text-base opacity-60">Insira suas credenciais de acesso</small>
             </div>
         </x-slot>
         <div class="col-span-12">

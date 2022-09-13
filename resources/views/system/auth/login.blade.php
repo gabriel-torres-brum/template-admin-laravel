@@ -3,9 +3,9 @@
 <x-app-layout>
     <x-system.auth-layout formActionRoute="{{ route('admin.login.handle') }}">
         <x-slot name="head">
-            <div class="col-span-12 mb-4 flex flex-col gap-1">
+            <div class="col-span-12 mb-4 flex flex-col gap-1 text-center">
                 <h3 class="text-xl font-bold">Administração</h3>
-                <small class="text-xs">Insira suas credenciais de acesso</small>
+                <small class="text-base opacity-60">Insira suas credenciais de acesso</small>
             </div>
         </x-slot>
         <div class="col-span-12">

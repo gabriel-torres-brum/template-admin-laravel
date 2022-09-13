@@ -1,7 +1,7 @@
 @props(['head', 'foot'])
 
 <div class="grid min-h-screen place-items-center p-6">
-    <div class="flex w-full max-w-md flex-col justify-center">
+    <div class="flex w-full max-w-xl flex-col justify-center">
         <div class="flex flex-col items-center justify-center gap-2">
             <a href="{{ route('admin.dashboard') }}">
                <x-app-logo />
