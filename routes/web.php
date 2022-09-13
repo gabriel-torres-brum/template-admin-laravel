@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+use App\Http\Livewire;
 use App\Http\Controllers\System as SystemControllers;
-use App\Http\Livewire\System as Livewire;
+use App\Http\Livewire\System as SystemLivewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Livewire\System as Livewire;
 |
 */
 
-Route::get('/', [Controllers\IndexController::class, 'index'])->name('index');
+Route::get('/', Livewire\Index::class)->name('index');
 
 Route::prefix('admin')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -25,7 +26,7 @@ Route::prefix('admin')->group(function () {
     });
     
     Route::middleware('auth')->group(function () {
-        Route::get('/painel', Livewire\Dashboard::class)->name('admin.dashboard');
+        Route::get('/painel', SystemLivewire\Dashboard::class)->name('admin.dashboard');
         Route::get('sair', [SystemControllers\Auth\LoginController::class, 'logout'])->name('admin.logout');
     });
 });

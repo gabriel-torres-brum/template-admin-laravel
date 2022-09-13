@@ -38,7 +38,7 @@
         </div>
     </div>
     <div
-        class="hidden lg:flex from-primary-200 to-primary-400 dark:from-primary-800 dark:to-primary-900 max-w-[50%] flex-1 items-center border-r-2 border-gray-200 bg-gradient-to-r dark:border-gray-700">
+        class="hidden lg:flex from-primary-300 to-primary-400 dark:from-primary-800 dark:to-primary-900 max-w-[50%] flex-1 items-center border-r-2 border-gray-200 bg-gradient-to-r dark:border-gray-700">
         <h5 class="text-xl font-extrabold tracking-tight"></h5>
     </div>
 </div>
