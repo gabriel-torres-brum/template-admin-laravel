@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('cep');
             $table->string('address');
             $table->string('number');
-            $table->string('adjunct');
+            $table->string('adjunct')->nullable();
             $table->string('district');
             $table->string('city');
             $table->string('state');

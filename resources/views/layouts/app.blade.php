@@ -42,11 +42,12 @@
 </head>
 
 <body x-data="drawer()">
+    <main class="h-full">
+        {{ $slot }}
+    </main>
 
-    {{ $slot }}
-
-    @livewireScripts
     @livewire('notifications')
+    @livewireScripts
 </body>
 
 </html>

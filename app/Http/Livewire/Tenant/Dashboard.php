@@ -20,6 +20,7 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.tenant.dashboard');
+        return view('livewire.tenant.dashboard')
+            ->layout('tenant.layouts.dashboard-layout');
     }
 }

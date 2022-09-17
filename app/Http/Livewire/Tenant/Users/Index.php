@@ -13,10 +13,14 @@ use Illuminate\Database\Eloquent\Collection;
 class Index extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
-    
+
     protected function getTableQuery(): Builder
     {
-        return User::query();
+        $users = User::query();
+        
+        $users->orderByRaw("id = '" . auth()->id() . "' DESC");
+        
+        return $users->latest();
     }
 
     protected function getTableColumns(): array
@@ -45,10 +49,10 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->icon('heroicon-o-pencil')
                 ->url(fn (User $record): string => route('users.edit', ['user' => $record])),
             Tables\Actions\DeleteAction::make('excluir')
-                ->hidden(fn (User $record) => $record->id === 1)
+                ->hidden(fn (User $record) => $record->id === auth()->id())
                 ->modalHeading('Excluir usuário')
                 ->icon('heroicon-o-trash')
-                ->action(fn (User $record) => $record->id !== 1 ? $record->delete() : null)
+                ->action(fn (User $record) => $record->id !== auth()->id() ? $record->delete() : null)
         ];
     }
 
@@ -58,10 +62,10 @@ class Index extends Component implements Tables\Contracts\HasTable
             Tables\Actions\BulkAction::make('excluir')
                 ->label('Excluir selecionados')
                 ->color('danger')
-                ->hidden(fn (User $record) => $record->id === 1)
+                ->hidden(fn (User $record) => $record->id === auth()->id())
                 ->action(function (Collection $records): void {
-                    foreach($records as $record) {
-                        if ($record->id !== 1) {
+                    foreach ($records as $record) {
+                        if ($record->id !== auth()->id()) {
                             $record->delete();
                         }
                     }
@@ -71,6 +75,7 @@ class Index extends Component implements Tables\Contracts\HasTable
     }
     public function render(): View
     {
-        return view('livewire.tenant.users.index');
+        return view('livewire.tenant.users.index')
+            ->layout('tenant.layouts.dashboard-layout');
     }
 }

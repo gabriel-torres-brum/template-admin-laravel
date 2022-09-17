@@ -25,18 +25,6 @@ class TenantSeeder extends Seeder
                 'domain' => $tenant1->id . '.localhost'
             ]);
 
-        \App\Models\TenantAddress::factory(1)->create([
-            'tenant_id' => $tenant1->id
-        ]);
-
-        \App\Models\TenantEmail::factory(2)->create([
-            'tenant_id' => $tenant1->id
-        ]);
-
-        \App\Models\TenantPhone::factory(2)->create([
-            'tenant_id' => $tenant1->id
-        ]);
-
         $tenant2 = \App\Models\Tenant::create([
             'id' => 'igreja2',
             'name' => 'Assembleia de Deus Ministério Monte Moriá',
@@ -47,17 +35,5 @@ class TenantSeeder extends Seeder
             ->create([
                 'domain' => $tenant2->id . '.localhost'
             ]);
-
-        \App\Models\TenantAddress::factory(1)->create([
-            'tenant_id' => $tenant2->id
-        ]);
-
-        \App\Models\TenantEmail::factory(2)->create([
-            'tenant_id' => $tenant2->id
-        ]);
-
-        \App\Models\TenantPhone::factory(2)->create([
-            'tenant_id' => $tenant2->id
-        ]);
     }
 }

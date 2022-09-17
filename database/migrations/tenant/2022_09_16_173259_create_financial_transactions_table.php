@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tenant_phones', function (Blueprint $table) {
+        Schema::create('financial_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('number')->unique();
-            $table->string('tenant_id')->index();
-            
-            $table->foreign('tenant_id')->references('id')->on('tenants')->cascadeOnDelete()->cascadeOnUpdate();
-
+            $table->integer('type'); // 1 - Entrada, 2 - Saída
+            $table->string('description');
+            $table->string('value');
+            $table->string('payment_method')->nullable();
+            $table->string('invoice')->nullable(); // imagem
+            $table->integer('status'); // 1 - Em aberto, 2 - Pago, 3 - Anulado
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenant_phones');
+        Schema::dropIfExists('financial_transactions');
     }
 };

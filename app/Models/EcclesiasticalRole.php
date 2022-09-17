@@ -11,4 +11,9 @@ class EcclesiasticalRole extends Model
     use HasFactory, Uuid;
 
     protected $guarded = [];
+
+    public function people()
+    {
+        return $this->hasMany(Person::class);
+    }
 }

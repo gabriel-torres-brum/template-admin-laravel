@@ -3,10 +3,12 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use Illuminate\Support\Str;
 
 class DrawerMenuLink extends Component
 {
     public string $label;
+    public string $dropdownId;
     public ?string $route;
     public ?string $icon;
 
@@ -18,6 +20,7 @@ class DrawerMenuLink extends Component
     public function __construct($label, $route = null, $icon = null)
     {
         $this->label = $label;
+        $this->dropdownId = Str::slug($label, "_");
         $this->route = $route;
         $this->icon = $icon;
     }

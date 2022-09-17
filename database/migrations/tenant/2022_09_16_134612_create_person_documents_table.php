@@ -13,19 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tenant_addresses', function (Blueprint $table) {
+        Schema::create('person_documents', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('cep');
-            $table->string('address');
+            $table->string('description');
             $table->string('number');
-            $table->string('adjunct');
-            $table->string('district');
-            $table->string('city');
-            $table->string('state');
-            $table->string('tenant_id')->index();
+            $table->string('shipping_date')->nullable();
+            $table->string('copy_picture')->nullable(); // image
 
-            $table->foreign('tenant_id')->references('id')->on('tenants')->cascadeOnDelete()->cascadeOnUpdate();
-
+            $table->foreignUuid('person_id')->constrained()->cascadeOnDelete();
+            
             $table->timestamps();
         });
     }
@@ -37,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenant_addresses');
+        Schema::dropIfExists('person_documents');
     }
 };

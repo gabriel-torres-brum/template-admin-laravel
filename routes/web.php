@@ -26,7 +26,7 @@ Route::prefix('admin')->group(function () {
     });
     
     Route::middleware('auth')->group(function () {
-        Route::get('/painel', SystemLivewire\Dashboard::class)->name('admin.dashboard');
+        Route::get('painel', SystemLivewire\Dashboard::class)->name('admin.dashboard');
         Route::get('sair', [SystemControllers\Auth\LoginController::class, 'logout'])->name('admin.logout');
     });
 });

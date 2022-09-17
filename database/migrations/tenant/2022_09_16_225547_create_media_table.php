@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tenant_emails', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('email')->unique();
-            $table->string('tenant_id')->index();
-
-            $table->foreign('tenant_id')->references('id')->on('tenants')->cascadeOnDelete()->cascadeOnUpdate();
+        Schema::create('media', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenant_emails');
+        Schema::dropIfExists('media');
     }
 };

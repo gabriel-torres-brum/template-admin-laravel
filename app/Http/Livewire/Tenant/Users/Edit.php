@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tenant\Users;
 
+use App\Models\Person;
 use Livewire\Component;
 
 use App\Models\User;
@@ -15,8 +16,9 @@ class Edit extends Component implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
 
     public User $user;
+    public Person $person;
 
-    protected function getFormModel(): User
+    protected function getUserFormModel(): User
     {
         return $this->user;
     }
@@ -24,50 +26,93 @@ class Edit extends Component implements Forms\Contracts\HasForms
     public function mount($user): void
     {
         $this->user = $user;
+        // $this->person = $user->person;
 
-        $this->form->fill([
+        $this->userForm->fill([
             'name' => $this->user->name,
             'email' => $this->user->email,
-            'admin' => $this->user->id === 1
-                ? $this->user->admin
-                : ''
         ]);
+
+        // $this->personForm->fill([
+        //     'name' => $this->person->name,
+        //     'birthday' => $this->person->birthday,
+        //     'gender' => $this->person->gender,
+        //     'picture' => $this->person->picture,
+        // ]);
     }
 
-    protected function getFormSchema(): array
+    protected function getUserFormSchema(): array
     {
         $form = [
-            Components\TextInput::make('name')
-                ->label('Nome')
-                ->required(),
-            Components\TextInput::make('email')
-                ->label('Email')
-                ->unique('users', 'email', $this->user)
-                ->email()
-                ->required(),
-            Components\TextInput::make('password')
-                ->label('Senha')
-                ->password()
-                ->required(),
+            Components\Card::make([
+                Components\TextInput::make('name')
+                    ->label('Nome')
+                    ->required(),
+                Components\TextInput::make('email')
+                    ->label('Email')
+                    ->unique('users', 'email', $this->user)
+                    ->email()
+                    ->required(),
+                Components\TextInput::make('password')
+                    ->label('Senha')
+                    ->password()
+                    ->required()
+            ])
         ];
-
-        if ($this->user->id !== 1) {
-            array_push(
-                $form,
-                Components\Checkbox::make('admin')
-                    ->label('Administrador')
-            );
-        }
 
         return $form;
     }
 
+    protected function getPersonFormSchema(): array
+    {
+        $form = [
+            Components\DatePicker::make('birthday')
+                ->format('d/m/Y')
+                ->displayFormat("d/m/Y")
+                ->label('Data de nascimento')
+                ->required(),
+            Components\Select::make('gender')
+                ->options([
+                    'Masculino' => 'Masculino',
+                    'Feminino' => 'Feminino'
+                ])
+                ->label('Gênero')
+                ->required(),
+            Components\Select::make('ecclesiastical_role_id')
+                ->label('Cargo Eclesiástico')
+                ->relationship('ecclesiasticalRole', 'name'),
+            Components\FileUpload::make('picture')
+                ->label('Imagem')
+        ];
+
+        return $form;
+    }
+
+    protected function getForms(): array
+    {
+        return [
+            'userForm' => $this->makeForm()
+                ->schema($this->getUserFormSchema())
+                ->model($this->user),
+            // 'personForm' => $this->makeForm()
+            //     ->schema($this->getPersonFormSchema())
+            //     ->model($this->person),
+        ];
+    }
+
     public function submit(): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
-        $form = $this->form->getState();
-        $form['password'] = bcrypt($form['password']);
-        
-        $this->user->fill($form)->save();
+        $userForm = $this->userForm->getState();
+        // $personForm = $this->personForm->getState();
+
+        $userForm['password'] = bcrypt($userForm['password']);
+
+        $this->user->fill($userForm)->save();
+        // $this->user->person->fill([
+        //     'name' => $this->user->name,
+        //     ...$personForm
+        // ]);
+        // $this->user->push();
 
         Notification::make()
             ->title('Informações do usuário atualizadas com sucesso!')
@@ -76,8 +121,10 @@ class Edit extends Component implements Forms\Contracts\HasForms
 
         return redirect()->route('users.index');
     }
+
     public function render(): View
     {
-        return view('livewire.tenant.users.edit');
+        return view('livewire.tenant.users.edit')
+            ->layout('tenant.layouts.dashboard-layout');
     }
 }

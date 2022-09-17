@@ -14,20 +14,20 @@ class PersonSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Person::factory(10)
-            ->create()
-            ->each(function ($person) {
-                \App\Models\PersonAddress::factory(2)->create([
-                    'person_id' => $person->id
-                ]);
+        // \App\Models\Person::factory(10)
+        //     ->create()
+        //     ->each(function ($person) {
+        //         \App\Models\PersonAddress::factory(2)->create([
+        //             'person_id' => $person->id
+        //         ]);
 
-                \App\Models\PersonEmail::factory(2)->create([
-                    'person_id' => $person->id
-                ]);
+        //         \App\Models\PersonEmail::factory(2)->create([
+        //             'person_id' => $person->id
+        //         ]);
 
-                \App\Models\PersonPhone::factory(2)->create([
-                    'person_id' => $person->id
-                ]);
-            });
+        //         \App\Models\PersonPhone::factory(2)->create([
+        //             'person_id' => $person->id
+        //         ]);
+        //     });
     }
 }

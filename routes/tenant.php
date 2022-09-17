@@ -20,6 +20,7 @@ use App\Http\Controllers\Tenant as Controllers;
 | Feel free to customize them however you want. Good luck!
 |
 */
+Route::fallback(fn() => redirect()->route('login.index'));
 
 Route::middleware([
     'web',
@@ -40,12 +41,24 @@ Route::middleware([
         Route::post('/redefinir-senha', [Controllers\Auth\ForgotPasswordController::class, 'resetPasswordHandle'])->name('password.update');
     });
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware('auth')->prefix('painel')->group(function () {
         Route::get('/', Livewire\Dashboard::class)->name('dashboard');
+        Route::get('configuracoes', Livewire\Config::class)->name('config');
     
         Route::get('usuarios', Livewire\Users\Index::class)->name('users.index');
         Route::get('usuarios/editar/{user}', Livewire\Users\Edit::class)->name('users.edit');
         Route::get('usuarios/adicionar', Livewire\Users\Create::class)->name('users.create');
+
+        Route::get('membros', Livewire\People\Index::class)->name('people.index');
+        Route::get('membros/editar/{person}', Livewire\People\Edit::class)->name('people.edit');
+        Route::get('membros/adicionar', Livewire\People\Create::class)->name('people.create');
+
+        Route::get('cargos-eclesiasticos', Livewire\EcclesiasticalRoles\Index::class)->name('ecclesiasticalRoles.index');
+        Route::get('cargos-eclesiasticos/editar/{ecclesiasticalRole}', Livewire\EcclesiasticalRoles\Edit::class)->name('ecclesiasticalRoles.edit');
+        Route::get('cargos-eclesiasticos/adicionar', Livewire\EcclesiasticalRoles\Create::class)->name('ecclesiasticalRoles.create');
+
+        Route::get('lancamentos', Livewire\FinancialTransactions\Index::class)->name('financialTransactions.index');
+        Route::get('lancamentos/adicionar', Livewire\FinancialTransactions\Create::class)->name('financialTransactions.create');
     
         Route::get('sair', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
     });

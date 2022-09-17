@@ -11,4 +11,9 @@ class PersonEmail extends Model
     use HasFactory, Uuid;
 
     protected $guarded = [];
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 }

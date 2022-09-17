@@ -19,4 +19,19 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'cnpj',
         ];
     }
+
+    public function tenantAddresses()
+    {
+        return $this->hasMany(TenantAddress::class);
+    }
+
+    public function tenantPhones()
+    {
+        return $this->hasMany(TenantPhone::class);
+    }
+
+    public function tenantEmails()
+    {
+        return $this->hasMany(TenantEmail::class);
+    }
 }

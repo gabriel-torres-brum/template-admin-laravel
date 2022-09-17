@@ -16,8 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         if (tenant()) {
             $this->call([
+                UserSeeder::class,
                 EcclesiasticalRoleSeeder::class,
-                PersonSeeder::class,
+                // PersonSeeder::class,
             ]);
         } else {
             $this->call([

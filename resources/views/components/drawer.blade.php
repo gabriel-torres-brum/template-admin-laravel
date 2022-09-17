@@ -1,6 +1,6 @@
 <div>
     <div
-        class="fixed z-30 h-full w-full bg-gray-500 opacity-30 dark:bg-black md:hidden"
+        class="fixed z-20 h-full w-full bg-gray-500 opacity-30 dark:bg-black md:hidden"
         x-on:click="toggleDrawer"
         x-show="showDrawer"
         x-cloak

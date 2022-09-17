@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tenant\Users;
 
+use App\Models\Person;
 use Livewire\Component;
 
 use App\Models\User;
@@ -14,44 +15,101 @@ class Create extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
 
-    protected function getFormModel(): string
+    public User $user;
+    public Person $person;
+
+    protected function getUserFormModel(): string
     {
         return User::class;
     }
 
-    public function mount(): void
+    protected function getPersonFormModel(): string
     {
-        $this->form->fill();
+        return Person::class;
     }
 
-    protected function getFormSchema(): array
+    public function mount(): void
+    {
+        $this->user = new User;
+        $this->person = new Person;
+
+        $this->userForm->fill();
+        $this->personForm->fill();
+    }
+
+    protected function getUserFormSchema(): array
+    {
+        $form = [
+            Components\Card::make([
+                Components\TextInput::make('name')
+                    ->label('Nome')
+                    ->required(),
+                Components\TextInput::make('email')
+                    ->label('Email')
+                    ->unique()
+                    ->email()
+                    ->required(),
+                Components\TextInput::make('password')
+                    ->label('Senha')
+                    ->password()
+                    ->required()
+            ])
+        ];
+
+        return $form;
+    }
+
+    protected function getPersonFormSchema(): array
+    {
+        $form = [
+            Components\DatePicker::make('birthday')
+                ->format('d/m/Y')
+                ->displayFormat("d/m/Y")
+                ->label('Data de nascimento')
+                ->required(),
+            Components\Select::make('gender')
+                ->options([
+                    'Masculino' => 'Masculino',
+                    'Feminino' => 'Feminino'
+                ])
+                ->label('Gênero')
+                ->required(),
+            Components\Select::make('ecclesiastical_role_id')
+                ->label('Cargo Eclesiástico')
+                ->relationship('ecclesiasticalRole', 'name'),
+            Components\FileUpload::make('picture')
+                ->label('Imagem')
+        ];
+
+        return $form;
+    }
+
+    protected function getForms(): array
     {
         return [
-            Components\TextInput::make('name')
-                ->label('Nome')
-                ->maxLength(50)
-                ->required(),
-            Components\TextInput::make('email')
-                ->label('Email')
-                ->unique()
-                ->maxLength(50)
-                ->email()
-                ->required(),
-            Components\TextInput::make('password')
-                ->label('Senha')
-                ->minLength(6)
-                ->maxLength(50)
-                ->password()
-                ->required(),
+            'userForm' => $this->makeForm()
+                ->schema($this->getUserFormSchema())
+                ->model($this->user),
+            'personForm' => $this->makeForm()
+                ->schema($this->getPersonFormSchema())
+                ->model($this->person),
         ];
     }
 
     public function submit(): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
-        $form = $this->form->getState();
-        $form['password'] = bcrypt($form['password']);
+        $userForm = $this->userForm->getState();
 
-        User::create($form);
+        $userForm['password'] = bcrypt($userForm['password']);
+
+        $user = $this->user->create($userForm);
+
+        // $personForm = $this->personForm->getState();
+        // $this->person->create([
+        //     'name' => $user->name,
+        //     ...$personForm,
+        //     'user_id' => $user->id
+        // ]);
 
         Notification::make()
             ->title('Usuário adicionado com sucesso!')
@@ -63,6 +121,7 @@ class Create extends Component implements Forms\Contracts\HasForms
 
     public function render(): View
     {
-        return view('livewire.tenant.users.create');
+        return view('livewire.tenant.users.create')
+            ->layout('tenant.layouts.dashboard-layout');
     }
 }

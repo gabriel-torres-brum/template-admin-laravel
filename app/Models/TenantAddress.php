@@ -11,4 +11,9 @@ class TenantAddress extends Model
     use HasFactory, Uuid;
 
     protected $guarded = [];
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }
