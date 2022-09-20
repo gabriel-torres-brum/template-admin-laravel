@@ -11,7 +11,7 @@
                 />
                 <a
                     class="uppercase"
-                    href="{{ route('dashboard') }}"
+                    href="{{ tenant() ? tenantRoute('dashboard') : route('dashboard') }}"
                 >
                     @if (tenant())
                         {{ tenant()->id }}

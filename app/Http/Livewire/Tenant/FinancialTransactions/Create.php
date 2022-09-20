@@ -74,11 +74,11 @@ class Create extends Component implements Forms\Contracts\HasForms
                         Components\FileUpload::make('invoice')
                             ->label('Anexar nota fiscal')
                             ->visible(fn ($get) => $get('type') === '2')
+                            ->visibility('private')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                                 return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                                    ->prepend('financialTransactions/' . now()->format('Y-m-d') . '/');
+                                ->prepend(tenant()->getTenantKey() . '/financialTransactions/' . now()->format('Y-m-d') . '/');
                             })
-                            ->getUploadedFileUrlUsing(fn ($file) => tenant_asset($file))
                             ->columnSpan(2),
                     ])
                     ->columns(2)
@@ -109,7 +109,7 @@ class Create extends Component implements Forms\Contracts\HasForms
             ->success()
             ->send();
 
-        return redirect()->route('financialTransactions.index');
+        return redirect(tenantRoute('financialTransactions.index'));
     }
 
     public function render(): View

@@ -1,7 +1,7 @@
 @push('title', 'Login')
 
 <x-app-layout>
-    <x-tenant.auth-layout formActionRoute="{{ route('login.handle') }}">
+    <x-tenant.auth-layout formActionRoute="{{ tenantRoute('login.handle') }}">
         <x-slot name="head">
             <div class="text-2xl border-b-2 border-gray-200 dark:border-gray-700 pb-2 mb-4">
                 {{ tenant()->id }}
@@ -33,7 +33,7 @@
         <div class="col-span-12 mt-2 flex items-center justify-end gap-4">
             <a
                 class="text-primary-500 text-sm hover:underline"
-                href="{{ route('forgot-password.index') }}"
+                href="{{ tenantRoute('forgot-password.index') }}"
             >
                 Esqueceu a senha?
             </a>
@@ -47,7 +47,7 @@
             <div class="my-4 flex items-center justify-center gap-4">
                 <a
                     class="text-primary-500 text-sm hover:underline"
-                    href="{{ route('auth.registration.index') }}"
+                    href="{{ tenantRoute('auth.registration.index') }}"
                 >
                     Ainda não tem cadastro?
                 </a>

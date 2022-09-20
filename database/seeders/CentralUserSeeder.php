@@ -14,7 +14,7 @@ class CentralUserSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory()->create([
+        \App\Models\CentralUser::factory()->create([
             'name' => 'Administrador',
             'email' => 'admin@email.com',
         ]);

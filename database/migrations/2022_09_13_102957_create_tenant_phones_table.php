@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ecclesiastical_roles', function (Blueprint $table) {
+        Schema::create('tenant_phones', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->unique();
-            $table->string('gender');
+            $table->string('tenant_id');
+            $table->string('number')->unique();
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ecclesiastical_roles');
+        Schema::dropIfExists('tenant_phones');
     }
 };

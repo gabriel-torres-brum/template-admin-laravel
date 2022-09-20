@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('tenant_id');
             $table->string('name');
             $table->string('gender');
             $table->date('birthday');
@@ -33,6 +34,7 @@ return new class extends Migration
 
             $table->foreignUuid('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignUuid('ecclesiastical_role_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

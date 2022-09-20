@@ -30,6 +30,6 @@ class RegistrationController extends Controller
             ->success()
             ->send();
          
-        return redirect()->route('login.index');
+        return redirect(tenantRoute('login.index'));
     }
 }

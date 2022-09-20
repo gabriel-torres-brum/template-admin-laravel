@@ -48,6 +48,9 @@
 
     @livewire('notifications')
     @livewireScripts
+    <script>
+        window.livewire_app_url = "{{ tenant() ? '/' . tenant()->getTenantKey() : '' }}";
+    </script>
 </body>
 
 </html>

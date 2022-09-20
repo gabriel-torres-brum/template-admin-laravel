@@ -1,7 +1,7 @@
 @push('title', 'Esqueceu a senha')
 
 <x-app-layout>
-    <x-tenant.auth-layout formActionRoute="{{ route('forgot-password.handle') }}">
+    <x-tenant.auth-layout formActionRoute="{{ tenantRoute('forgot-password.handle') }}">
         <x-slot name="head">
             <div class="col-span-12 mb-4 flex flex-col gap-1">
                 <h3 class="text-xl font-bold">Esqueceu a senha?</h3>

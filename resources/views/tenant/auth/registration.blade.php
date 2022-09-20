@@ -1,7 +1,7 @@
 @push('title', 'Cadastre-se')
 
 <x-app-layout>
-    <x-tenant.auth-layout formActionRoute="{{ route('auth.registration.index') }}">
+    <x-tenant.auth-layout formActionRoute="{{ tenantRoute('auth.registration.index') }}">
         <x-slot name="head">
             <div class="col-span-12 mb-4 flex flex-col gap-1">
                 <h3 class="text-xl font-bold">Cadastre-se</h3>
@@ -40,7 +40,7 @@
         <div class="col-span-12 mt-2 flex items-center justify-end gap-4">
             <a
                 class="text-primary-500 text-sm hover:underline"
-                href="{{ route('login.index') }}"
+                href="{{ tenantRoute('login.index') }}"
             >
                 Já é cadastrado?
             </a>

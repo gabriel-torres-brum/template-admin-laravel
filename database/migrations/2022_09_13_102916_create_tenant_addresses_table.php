@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('tenant_addresses', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('tenant_id');
             $table->string('cep');
             $table->string('address');
             $table->string('number');
@@ -22,6 +23,9 @@ return new class extends Migration
             $table->string('district');
             $table->string('city');
             $table->string('state');
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

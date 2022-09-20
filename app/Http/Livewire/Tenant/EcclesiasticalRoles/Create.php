@@ -58,7 +58,7 @@ class Create extends Component implements Forms\Contracts\HasForms
             ->success()
             ->send();
 
-        return redirect()->route('ecclesiasticalRoles.index');
+        return redirect(tenantRoute('ecclesiasticalRoles.index'));
     }
 
     public function render(): View

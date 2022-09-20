@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Person extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory, Uuid, BelongsToTenant;
 
     protected $guarded = [];
 
@@ -20,11 +21,6 @@ class Person extends Model
         'receipt_date' => 'date',
         'affiliation_date' => 'date',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function ecclesiasticalRole()
     {

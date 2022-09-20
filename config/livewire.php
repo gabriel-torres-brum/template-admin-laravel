@@ -1,6 +1,6 @@
 <?php
 
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
 return [
 
@@ -85,8 +85,7 @@ return [
 
     'middleware_group' => [
         'web',
-        'universal',
-        InitializeTenancyByDomain::class,
+        // InitializeTenancyByPath::class,
     ],
 
     /*

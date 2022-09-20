@@ -4,7 +4,7 @@
     <div class="flex justify-center items-center flex-1">
         <div class="flex w-full max-w-md flex-col justify-center">
             <div class="flex flex-col items-center justify-center gap-2">
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ tenantRoute('dashboard') }}">
                     <x-app-logo />
                 </a>
             </div>

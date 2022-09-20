@@ -21,7 +21,7 @@ class Index extends Component
         if ($this->tenant) {
             tenancy()->initialize($this->tenant);
 
-            redirect(tenantRoute(route('login.index')));
+            redirect(tenantRoute('login.index'));
         }
     }
 

@@ -20,10 +20,15 @@ class TenantSeeder extends Seeder
             'cnpj' => '11111111111111',
         ]);
 
-        $tenant1->domains()
-            ->create([
-                'domain' => $tenant1->id . '.localhost'
-            ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Gabriel Torres Brum',
+            'email' => 'gtorresbrum@gmail.com',
+            'tenant_id' => $tenant1->id
+        ]);
+
+        \App\Models\EcclesiasticalRole::factory(5)->create([
+            'tenant_id' => $tenant1->id
+        ]);
 
         $tenant2 = \App\Models\Tenant::create([
             'id' => 'igreja2',
@@ -31,9 +36,14 @@ class TenantSeeder extends Seeder
             'cnpj' => '22222222222222',
         ]);
 
-        $tenant2->domains()
-            ->create([
-                'domain' => $tenant2->id . '.localhost'
-            ]);
+        \App\Models\EcclesiasticalRole::factory(5)->create([
+            'tenant_id' => $tenant2->id
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Gabriel Torres Brum',
+            'email' => 'gtorresbrum@hotmail.com',
+            'tenant_id' => $tenant2->id
+        ]);
     }
 }

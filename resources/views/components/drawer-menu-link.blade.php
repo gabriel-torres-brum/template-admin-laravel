@@ -38,7 +38,7 @@
     @else
         <a
             class="@if (request()->routeIs($route)) bg-gray-100 dark:bg-gray-700 @endif flex items-center rounded-lg border-2 border-gray-200 p-2 text-base font-normal transition duration-300 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700"
-            href="{{ route($route) }}"
+            href="{{ tenant() ? tenantRoute($route) : route($route) }}"
         >
             <x-icon
                 class="h-6 w-6"

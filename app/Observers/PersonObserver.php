@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Storage;
 class PersonObserver
 {
     /**
+     * Handle the Person "creating" event.
+     *
+     * @param  \App\Models\Person  $person
+     * @return void
+     */
+    public function creating(Person $person)
+    {
+        $person->tenant_id = tenant()->id;
+    }
+
+    /**
      * Handle the Person "created" event.
      *
      * @param  \App\Models\Person  $person

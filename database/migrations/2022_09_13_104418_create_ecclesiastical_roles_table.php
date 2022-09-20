@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tenant_phones', function (Blueprint $table) {
+        Schema::create('ecclesiastical_roles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('number')->unique();
+            $table->string('tenant_id');
+            $table->string('name')->unique();
+            $table->string('gender');
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenant_phones');
+        Schema::dropIfExists('ecclesiastical_roles');
     }
 };

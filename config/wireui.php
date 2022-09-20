@@ -65,7 +65,7 @@ return [
         ],
         'icon' => [
             'class' => Components\Icon::class,
-            'alias' => 'icon',
+            'alias' => 'wicon',
         ],
         'icon.spinner' => [
             'class' => Components\Icons\Spinner::class,

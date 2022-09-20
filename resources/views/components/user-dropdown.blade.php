@@ -14,7 +14,7 @@
     >
         <x-icon
             class="h-5 w-5"
-            name="menu"
+            name="bars-4"
         />
     </x-button.circle>
 
@@ -87,7 +87,7 @@
                         <div class="flex items-center gap-2">
                             <x-icon
                                 class="h-5 w-5"
-                                name="logout"
+                                name="arrow-left-on-rectangle"
                                 solid
                             />
                             <span>Sair</span>

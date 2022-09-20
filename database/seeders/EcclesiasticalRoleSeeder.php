@@ -14,6 +14,6 @@ class EcclesiasticalRoleSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\EcclesiasticalRole::factory(5)->create();
+        //
     }
 }

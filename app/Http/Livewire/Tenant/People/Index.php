@@ -75,7 +75,7 @@ class Index extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Actions\EditAction::make('editar')
                 ->icon('heroicon-o-pencil')
-                ->url(fn (Person $record): string => route('people.edit', ['person' => $record])),
+                ->url(fn (Person $record): string => tenantRoute('people.edit', ['person' => $record])),
             Tables\Actions\DeleteAction::make('excluir')
                 ->hidden(fn (Person $record) => optional($record->user)->id === auth()->id())
                 ->modalHeading('Excluir usuário')

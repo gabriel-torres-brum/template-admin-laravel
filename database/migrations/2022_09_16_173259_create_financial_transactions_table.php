@@ -15,12 +15,16 @@ return new class extends Migration
     {
         Schema::create('financial_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('tenant_id');
             $table->integer('type'); // 1 - Entrada, 2 - Saída
             $table->string('description');
             $table->string('value');
             $table->string('payment_method')->nullable();
             $table->string('invoice')->nullable(); // imagem
             $table->integer('status')->nullable(); // 1 - Em aberto, 2 - Pago, 3 - Anulado
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

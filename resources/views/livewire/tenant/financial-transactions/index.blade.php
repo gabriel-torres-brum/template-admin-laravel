@@ -3,7 +3,7 @@
 <div class="flex flex-col justify-center gap-4">
     <div class="flex justify-end">
         <x-button
-            href="{{ route('financialTransactions.create') }}"
+            href="{{ tenantRoute('financialTransactions.create') }}"
             label="Incluir transação financeira"
             primary
             class="w-full sm:w-auto"

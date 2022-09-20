@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "stancl/tenancy": "^3.5",
+        "wireui/heroicons": "^2.3",
         "wireui/wireui": "^1.15"
     },
     "require-dev": {

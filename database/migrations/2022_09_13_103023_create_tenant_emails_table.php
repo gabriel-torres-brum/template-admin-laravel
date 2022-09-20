@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('tenant_emails', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('tenant_id');
             $table->string('email')->unique();
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

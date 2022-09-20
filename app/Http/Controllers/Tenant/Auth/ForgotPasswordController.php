@@ -83,7 +83,7 @@ class ForgotPasswordController extends Controller
                 ->duration(10000)
                 ->success()
                 ->send();
-            return redirect()->route('login.index');
+            return redirect(tenantRoute('login.index'));
         }
      
         return back()->withErrors(['email' => [__($status)]]);

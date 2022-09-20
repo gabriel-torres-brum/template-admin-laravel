@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(tenant() ? route('dashboard') : route('admin.dashboard'));
+                return redirect(tenant() ? tenantRoute('dashboard') : tenantRoute('admin.dashboard'));
             }
         }
 

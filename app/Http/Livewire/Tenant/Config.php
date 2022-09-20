@@ -33,7 +33,7 @@ class Config extends Component implements Forms\Contracts\HasForms
             'logo' => $this->tenant->logo,
             'tenantPhones' => TenantPhone::all(),
             'tenantAddresses' => TenantAddress::all(),
-            'tenantEmails' => TenantEmail::all(),
+            'tenantEmails' => TenantEmail::all()
         ]);
     }
 
@@ -70,7 +70,7 @@ class Config extends Component implements Forms\Contracts\HasForms
                             Components\TextInput::make('cep')
                                 ->label('CEP')
                                 ->mask(fn (Components\TextInput\Mask $mask) => $mask->pattern('00000-000'))
-                                ->reactive()
+                                ->lazy()
                                 ->afterStateUpdated(function ($state, $set) {
                                     $cep = preg_replace('~\D~', '', $state);
 
@@ -131,27 +131,27 @@ class Config extends Component implements Forms\Contracts\HasForms
 
         $this->tenant->fill($form)->save();
 
-        foreach($form['tenantAddresses'] as $tenantAddress) {
+        foreach ($form['tenantAddresses'] as $tenantAddress) {
             if (isset($tenantAddress['id'])) {
                 TenantAddress::find($tenantAddress['id'])->update($tenantAddress);
             } else {
-                (new TenantAddress)->fill($tenantAddress)->save();
+                TenantAddress::create($tenantAddress);
             }
         }
 
-        foreach($form['tenantPhones'] as $tenantPhone) {
+        foreach ($form['tenantPhones'] as $tenantPhone) {
             if (isset($tenantPhone['id'])) {
                 TenantPhone::find($tenantPhone['id'])->update($tenantPhone);
             } else {
-                (new TenantPhone)->fill($tenantPhone)->save();
+                TenantPhone::create($tenantPhone);
             }
         }
 
-        foreach($form['tenantEmails'] as $tenantEmail) {
+        foreach ($form['tenantEmails'] as $tenantEmail) {
             if (isset($tenantEmail['id'])) {
                 TenantEmail::find($tenantEmail['id'])->update($tenantEmail);
             } else {
-                (new TenantEmail)->fill($tenantEmail)->save();
+                TenantEmail::create($tenantEmail);
             }
         }
 
@@ -159,8 +159,8 @@ class Config extends Component implements Forms\Contracts\HasForms
             ->title('Informações atualizadas com sucesso!')
             ->success()
             ->send();
-
-        return redirect()->route('config');
+            
+        return redirect(tenantRoute('config'));
     }
 
     public function render()

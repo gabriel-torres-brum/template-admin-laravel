@@ -28,7 +28,7 @@ class LoginController extends Controller
 
         if (auth()->attempt($credentials)) {
             return redirect()
-                ->intended(route('dashboard'));
+                ->intended(tenantRoute('dashboard'));
         }
 
         Notification::make()
@@ -50,6 +50,6 @@ class LoginController extends Controller
             ->title("Sessão encerrada.")
             ->send();
 
-        return redirect()->route('login.index');
+        return redirect(tenantRoute('login.index'));
     }
 }

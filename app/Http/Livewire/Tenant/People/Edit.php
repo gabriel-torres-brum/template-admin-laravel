@@ -55,9 +55,10 @@ class Edit extends Component implements Forms\Contracts\HasForms
                     ->label('Foto')
                     ->image()
                     ->getUploadedFileUrlUsing(fn ($file) => tenant_asset($file))
+                    ->visibility('private')
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                         return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                            ->prepend('people/' . now()->format('Y-m-d') . '/');
+                        ->prepend(tenant()->getTenantKey() . '/people/' . now()->format('Y-m-d') . '/');
                     })
                     ->columnSpan(2),
                 // ->getUploadedFileNameForStorageUsing(
@@ -244,6 +245,11 @@ class Edit extends Component implements Forms\Contracts\HasForms
                             Components\FileUpload::make('copy_picture')
                                 ->label('Anexar cópia')
                                 ->columnSpan(2)
+                                ->visibility('private')
+                                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
+                                    return str($file->generateHashNameWithOriginalNameEmbedded($file))
+                                    ->prepend(tenant()->getTenantKey() . '/people/documents/' . now()->format('Y-m-d') . '/');
+                                })
                                 ->getUploadedFileUrlUsing(fn ($file) => tenant_asset($file))
                         ])
                         ->columns(2)
@@ -293,7 +299,7 @@ class Edit extends Component implements Forms\Contracts\HasForms
             ->success()
             ->send();
 
-        return redirect()->route('people.index');
+        return redirect(tenantRoute('people.index'));
     }
 
     public function render(): View

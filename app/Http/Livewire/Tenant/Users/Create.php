@@ -116,7 +116,7 @@ class Create extends Component implements Forms\Contracts\HasForms
             ->success()
             ->send();
 
-        return redirect()->route('users.index');
+        return redirect(tenantRoute('users.index'));
     }
 
     public function render(): View
