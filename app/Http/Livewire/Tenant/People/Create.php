@@ -40,12 +40,11 @@ class Create extends Component implements Forms\Contracts\HasForms
                     ->label('Foto')
                     ->image()
                     ->columnSpan(2)
-                    ->visibility('private')
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                         return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                        ->prepend(tenant()->getTenantKey() . '/people/' . now()->format('Y-m-d') . '/');
+                        ->prepend('tenants/' . tenant()->getTenantKey() . '/people/' . now()->format('Y-m-d') . '/');
                     })
-                    ->getUploadedFileUrlUsing(fn ($file) => tenant_asset($file)),
+                    ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/tenants/' . $file)),
                 Components\TextInput::make('name')
                     ->label('Nome')
                     ->lazy()
@@ -222,9 +221,9 @@ class Create extends Component implements Forms\Contracts\HasForms
                                 ->visibility('private')
                                 ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                                     return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                                    ->prepend(tenant()->getTenantKey() . '/people/documents/' . now()->format('Y-m-d') . '/');
+                                    ->prepend('tenants/' . tenant()->getTenantKey() . '/people/documents/' . now()->format('Y-m-d') . '/');
                                 })
-                                ->getUploadedFileUrlUsing(fn ($file) => tenant_asset($file))
+                                ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/tenants/' . $file)),
                         ])
                         ->columns(2)
                         ->columnSpan(2)

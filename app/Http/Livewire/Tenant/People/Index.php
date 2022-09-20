@@ -38,7 +38,7 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->searchable(),
             Tables\Columns\ImageColumn::make('picture')
                 ->label('Foto')
-                ->getStateUsing(fn ($record) => $record->picture ? tenant_asset($record->picture) : null)
+                ->getStateUsing(fn ($record) => $record->picture ? global_asset($record->picture) : null)
                 ->rounded(),
             Tables\Columns\TextColumn::make('name')
                 ->label('Nome')

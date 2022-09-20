@@ -11,6 +11,7 @@ use Livewire\Component;
 use Filament\Forms;
 use Filament\Forms\Components;
 use Filament\Notifications\Notification;
+use Livewire\TemporaryUploadedFile;
 
 class Config extends Component implements Forms\Contracts\HasForms
 {
@@ -41,6 +42,14 @@ class Config extends Component implements Forms\Contracts\HasForms
     {
         $form = [
             Components\Card::make([
+                Components\FileUpload::make('logo')
+                    ->label('Logo')
+                    ->image()
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
+                        return str($file->generateHashNameWithOriginalNameEmbedded($file))
+                        ->prepend('tenants/' . tenant()->getTenantKey() . '/logo/');
+                    })
+                    ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/' . $file)),
                 Components\TextInput::make('name')
                     ->label('Nome')
                     ->required(),
@@ -131,6 +140,13 @@ class Config extends Component implements Forms\Contracts\HasForms
 
         $this->tenant->fill($form)->save();
 
+        if (empty($form['tenantAddresses'])) {
+            TenantAddress::all()
+                ->each(function ($record) {
+                    $record->delete();
+                });
+        }
+
         foreach ($form['tenantAddresses'] as $tenantAddress) {
             if (isset($tenantAddress['id'])) {
                 TenantAddress::find($tenantAddress['id'])->update($tenantAddress);
@@ -139,12 +155,26 @@ class Config extends Component implements Forms\Contracts\HasForms
             }
         }
 
+        if (empty($form['tenantPhones'])) {
+            TenantPhone::all()
+                ->each(function ($record) {
+                    $record->delete();
+                });
+        }
+
         foreach ($form['tenantPhones'] as $tenantPhone) {
             if (isset($tenantPhone['id'])) {
                 TenantPhone::find($tenantPhone['id'])->update($tenantPhone);
             } else {
                 TenantPhone::create($tenantPhone);
             }
+        }
+
+        if (empty($form['tenantEmails'])) {
+            TenantEmail::all()
+                ->each(function ($record) {
+                    $record->delete();
+                });
         }
 
         foreach ($form['tenantEmails'] as $tenantEmail) {
@@ -159,7 +189,7 @@ class Config extends Component implements Forms\Contracts\HasForms
             ->title('Informações atualizadas com sucesso!')
             ->success()
             ->send();
-            
+
         return redirect(tenantRoute('config'));
     }
 

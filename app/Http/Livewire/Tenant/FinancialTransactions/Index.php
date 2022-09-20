@@ -108,15 +108,15 @@ class Index extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Actions\Action::make('Comprovante')
                 ->icon('heroicon-s-download')
-                ->visible(fn (FinancialTransactions $record) => is_file(storage_path("app/public/{$record->invoice}")))
+                ->visible(fn (FinancialTransactions $record) => is_file(storage_path("app/public/tenants/" . tenant()->getTenantKey() . "{$record->invoice}")))
                 ->color('primary')
                 ->action(function (FinancialTransactions $record) {
                     if ($record->invoice) {
-                        $fileExtension = pathinfo(storage_path("app/public/{$record->invoice}"), PATHINFO_EXTENSION);
+                        $fileExtension = pathinfo(storage_path("app/public/tenants/" . tenant()->getTenantKey() . "{$record->invoice}"), PATHINFO_EXTENSION);
                         $description = str($record->description)->slug('_');
                         return response()
                             ->download(
-                                storage_path("app/public/{$record->invoice}"),
+                                storage_path("app/public/tenants/" . tenant()->getTenantKey() . "{$record->invoice}"),
                                 "{$record->created_at->format('Y-m-d_H-i-s')}_{$description}_comprovante_transacao_financeira.{$fileExtension}"
                             );
                     }

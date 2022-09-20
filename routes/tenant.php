@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Tenant as Livewire;
 use App\Http\Controllers\Tenant as Controllers;
 use Livewire\Controllers\HttpConnectionHandler;
+use Stancl\Tenancy\Controllers\TenantAssetsController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
 /*
@@ -20,7 +21,7 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 |
 */
 
-Route::fallback(fn () => redirect(tenantRoute('login.index')));
+// Route::fallback(fn () => redirect(tenantRoute('login.index')));
 
 Route::group([
     'prefix' => '/{tenant}',

@@ -19,12 +19,6 @@
 
     <title>@stack('title')</title>
 
-    <!-- Fonts -->
-    <link
-        href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"
-        rel="stylesheet"
-    >
-
     <script>
         if (localStorage._x_darkMode === 'true' || (!('_x_darkMode' in
                 localStorage) && window.matchMedia(
@@ -34,6 +28,13 @@
             document.documentElement.classList.remove("dark")
         }
     </script>
+    
+    <!-- Fonts -->
+    <link
+        href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet"
+    >
+
 
     @wireUiScripts
     @vite(['resources/css/app.css', 'resources/js/app.js'])

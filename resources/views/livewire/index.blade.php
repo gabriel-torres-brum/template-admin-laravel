@@ -12,16 +12,7 @@
             <x-slot name="label">
                 <x-icon
                     class="w-6 h-6"
-                    name="sun"
-                    x-cloak
-                    x-show="!darkMode"
-                    solid
-                />
-                <x-icon
-                    class="w-6 h-6"
                     name="moon"
-                    x-cloak
-                    x-show="darkMode"
                     solid
                 />
             </x-slot>
