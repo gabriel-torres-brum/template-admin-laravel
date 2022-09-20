@@ -15,7 +15,7 @@ class TenantSeeder extends Seeder
     public function run()
     {
         $tenant1 = \App\Models\Tenant::create([
-            'id' => 'igreja1',
+            'id' => 'adpv',
             'name' => 'Assembleia de Deus Ministério Palavra e Vida',
             'cnpj' => '11111111111111',
         ]);
@@ -31,7 +31,7 @@ class TenantSeeder extends Seeder
         ]);
 
         $tenant2 = \App\Models\Tenant::create([
-            'id' => 'igreja2',
+            'id' => 'admm',
             'name' => 'Assembleia de Deus Ministério Monte Moriá',
             'cnpj' => '22222222222222',
         ]);
