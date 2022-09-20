@@ -34,7 +34,8 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->sortable()
                 ->searchable(),
             Tables\Columns\TextColumn::make('value')
-                ->money('brl', true)
+                ->prefix('R$')
+                ->formatStateUsing(fn ($state) => number_format($state, 2, ',', '.'))
                 ->label('Valor')
                 ->sortable()
                 ->searchable(),
@@ -107,13 +108,17 @@ class Index extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Actions\Action::make('Comprovante')
                 ->icon('heroicon-s-download')
+                ->visible(fn (FinancialTransactions $record) => is_file(storage_path("app/public/{$record->invoice}")))
                 ->color('primary')
                 ->action(function (FinancialTransactions $record) {
-                    return response()
-                        ->download(
-                            storage_path("app/public/{$record->invoice}"),
-                            "{$record->created_at->format('Y-m-d')}_comprovante_transacao_financeira_{$record->id}"
-                        );
+                    if ($record->invoice) {
+                        $fileExtension = pathinfo(storage_path("app/public/{$record->invoice}"), PATHINFO_EXTENSION);
+                        return response()
+                            ->download(
+                                storage_path("app/public/{$record->invoice}"),
+                                "{$record->created_at->format('Y-m-d')}_comprovante_transacao_financeira_{$record->id}.{$fileExtension}"
+                            );
+                    }
                 }),
             Tables\Actions\Action::make('anular')
                 ->modalHeading('Anular transação financeira')
@@ -142,8 +147,9 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->color('warning')
                 ->action(function (Collection $records): void {
                     foreach ($records as $record) {
-                        $record->status = 3;
-                        $record->save();
+                        // $record->status = 3;
+                        // $record->save();
+                        $record->delete();
                     }
                 })
                 ->requiresConfirmation(),

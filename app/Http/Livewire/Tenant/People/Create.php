@@ -192,7 +192,6 @@ class Create extends Component implements Forms\Contracts\HasForms
                                 ->email()
                                 ->required(),
                         ])
-                        ->columns(2)
                         ->columnSpan(2)
                         ->defaultItems(0)
                 ])

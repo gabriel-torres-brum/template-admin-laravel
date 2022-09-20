@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class ViaCepService
 {
-    protected const API_BASE_URL = "https://viacep.com.br/ws/";
+    protected const API_BASE_URL = "http://viacep.com.br/ws/";
 
     /**
      * Consulta informações do CEP

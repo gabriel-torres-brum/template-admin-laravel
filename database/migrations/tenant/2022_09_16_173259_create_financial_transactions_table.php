@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('value');
             $table->string('payment_method')->nullable();
             $table->string('invoice')->nullable(); // imagem
-            $table->integer('status'); // 1 - Em aberto, 2 - Pago, 3 - Anulado
+            $table->integer('status')->nullable(); // 1 - Em aberto, 2 - Pago, 3 - Anulado
             $table->timestamps();
         });
     }

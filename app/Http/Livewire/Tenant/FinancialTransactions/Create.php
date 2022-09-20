@@ -76,7 +76,7 @@ class Create extends Component implements Forms\Contracts\HasForms
                             ->visible(fn ($get) => $get('type') === '2')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                                 return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                                ->prepend('financialTransactions/' . now()->format('Y-m-d') . '/');
+                                    ->prepend('financialTransactions/' . now()->format('Y-m-d') . '/');
                             })
                             ->getUploadedFileUrlUsing(fn ($file) => tenant_asset($file))
                             ->columnSpan(2),
@@ -93,11 +93,19 @@ class Create extends Component implements Forms\Contracts\HasForms
         $form = $this->form->getState();
 
         foreach ($form['financialTransactions'] as $financialTransaction) {
+            if (empty($financialTransaction['invoice'])) {
+                unset($financialTransaction['invoice']);
+            }
+                
             FinancialTransactions::create($financialTransaction);
         }
 
+        $notificationTitle = count($form['financialTransactions']) > 1
+            ? 'Transação financeira adicionada com sucesso!'
+            : 'Transações financeiras adicionadas com sucesso!';
+
         Notification::make()
-            ->title('Transação financeira adicionada com sucesso!')
+            ->title($notificationTitle)
             ->success()
             ->send();
 
