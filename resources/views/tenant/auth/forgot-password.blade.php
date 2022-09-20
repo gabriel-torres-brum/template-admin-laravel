@@ -19,10 +19,15 @@
             />
         </div>
         <div class="col-span-12 mt-2 flex items-center justify-end gap-4">
+            <a
+                class="text-primary-500 text-sm hover:underline"
+                href="{{ tenantRoute('login.index') }}"
+            >
+                Voltar para o login
+            </a>
             <x-button
-                label="Enviar"
                 type="submit"
-                outline
+                label="Enviar"
                 primary
             />
         </div>

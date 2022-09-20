@@ -3,12 +3,11 @@
 <x-app-layout>
     <x-tenant.auth-layout formActionRoute="{{ tenantRoute('login.handle') }}">
         <x-slot name="head">
-            <div class="text-2xl border-b-2 border-gray-200 dark:border-gray-700 pb-2 mb-4">
-                {{ tenant()->id }}
+            <div class="text-base text-center">
+                {{ tenant()->name ?? strtoupper(tenant()->id) }}
             </div>
-            <div class="mb-4 flex flex-col gap-1 text-center">
-                <h3 class="text-xl font-bold">Login</h3>
-                <small class="text-base opacity-60">Insira suas credenciais de acesso</small>
+            <div class="flex flex-col gap-1 text-center">
+                <small class="text-sm opacity-70">Insira suas credenciais para acessar o sistema</small>
             </div>
         </x-slot>
         <div class="col-span-12">
@@ -43,7 +42,7 @@
                 primary
             />
         </div>
-        <x-slot name="foot">
+        {{-- <x-slot name="foot">
             <div class="my-4 flex items-center justify-center gap-4">
                 <a
                     class="text-primary-500 text-sm hover:underline"
@@ -52,6 +51,6 @@
                     Ainda não tem cadastro?
                 </a>
             </div>
-        </x-slot>
+        </x-slot> --}}
     </x-tenant.auth-layout>
 </x-app-layout>

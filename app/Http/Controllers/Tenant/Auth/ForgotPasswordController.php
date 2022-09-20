@@ -14,7 +14,7 @@ class ForgotPasswordController extends Controller
 {
     public function index()
     {
-        return view('tenant.forgot-password');
+        return view('tenant.auth.forgot-password');
     }
 
     public function handle(Request $request)

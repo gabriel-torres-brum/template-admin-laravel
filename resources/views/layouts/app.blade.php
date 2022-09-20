@@ -42,6 +42,9 @@
 </head>
 
 <body x-data="drawer()">
+    @guest
+        <x-preloader />
+    @endguest
     <main class="h-full">
         {{ $slot }}
     </main>

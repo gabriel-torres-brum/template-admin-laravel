@@ -34,8 +34,8 @@ Route::group([
         Route::get('login', [Controllers\Auth\LoginController::class, 'index'])->name('login.index');
         Route::post('login', [Controllers\Auth\LoginController::class, 'handle'])->name('login.handle');
 
-        Route::get('cadastro', [Controllers\Auth\RegistrationController::class, 'index'])->name('auth.registration.index');
-        Route::post('cadastro', [Controllers\Auth\RegistrationController::class, 'handle'])->name('auth.registration.handle');
+        // Route::get('cadastro', [Controllers\Auth\RegistrationController::class, 'index'])->name('auth.registration.index');
+        // Route::post('cadastro', [Controllers\Auth\RegistrationController::class, 'handle'])->name('auth.registration.handle');
 
         Route::get('esqueceu-a-senha', [Controllers\Auth\ForgotPasswordController::class, 'index'])->name('forgot-password.index');
         Route::post('esqueceu-a-senha', [Controllers\Auth\ForgotPasswordController::class, 'handle'])->name('forgot-password.handle');
