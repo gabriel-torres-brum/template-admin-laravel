@@ -19,7 +19,6 @@ class CreateTenantsTable extends Migration
             $table->string('id')->primary();
             $table->string('name');
             $table->string('cnpj')->unique();
-            $table->string('logo')->nullable(); //image
             $table->timestamps();
             $table->text('data')->nullable();
         });

@@ -30,7 +30,6 @@ return new class extends Migration
             $table->date('receipt_date')->nullable();
             $table->date('affiliation_date')->nullable();
             $table->string('church_from')->nullable();
-            $table->string('picture')->nullable(); // image
 
             $table->foreignUuid('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignUuid('ecclesiastical_role_id')->nullable()->constrained()->nullOnDelete();

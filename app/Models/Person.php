@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
-class Person extends Model
+class Person extends Model implements HasMedia
 {
-    use HasFactory, Uuid, BelongsToTenant;
+    use HasFactory, Uuid, BelongsToTenant, InteractsWithMedia;
 
     protected $guarded = [];
 

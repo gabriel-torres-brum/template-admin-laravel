@@ -71,9 +71,11 @@ class Create extends Component implements Forms\Contracts\HasForms
                                 2 => 'Pago'
                             ])
                             ->required(),
-                        Components\FileUpload::make('invoice')
+                        Components\SpatieMediaLibraryFileUpload::make('financial_transactions_invoice')
                             ->label('Anexar nota fiscal')
                             ->visible(fn ($get) => $get('type') === '2')
+                            ->collection('financial_transactions_invoices')
+                            ->visibility('private')
                             ->disk('s3')
                             ->columnSpan(2),
                     ])

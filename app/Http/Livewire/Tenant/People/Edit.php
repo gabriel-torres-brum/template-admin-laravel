@@ -51,14 +51,12 @@ class Edit extends Component implements Forms\Contracts\HasForms
     {
         $form = [
             Components\Card::make([
-                Components\FileUpload::make('picture')
+                Components\FileUpload::make('people_picture')
                     ->label('Foto')
                     ->image()
-                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
-                        return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                            ->prepend('tenants/' . tenant()->getTenantKey() . '/people/' . now()->format('Y-m-d') . '/');
-                    })
-                    ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/' . $file))
+                    ->collection('people_pictures')
+                    ->visibility('private')
+                    ->disk('s3')
                     ->columnSpan(2),
                 // ->getUploadedFileNameForStorageUsing(
                 //     function (TemporaryUploadedFile $file, $get): string {

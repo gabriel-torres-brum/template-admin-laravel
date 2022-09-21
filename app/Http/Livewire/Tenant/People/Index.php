@@ -36,9 +36,8 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->label('Data de inclusão')
                 ->sortable()
                 ->searchable(),
-            Tables\Columns\ImageColumn::make('picture')
+            Tables\Columns\SpatieMediaLibraryImageColumn::make('picture')
                 ->label('Foto')
-                ->getStateUsing(fn ($record) => $record->picture ? global_asset($record->picture) : null)
                 ->rounded(),
             Tables\Columns\TextColumn::make('name')
                 ->label('Nome')

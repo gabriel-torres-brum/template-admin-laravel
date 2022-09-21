@@ -36,15 +36,13 @@ class Create extends Component implements Forms\Contracts\HasForms
     {
         $form = [
             Components\Card::make([
-                Components\FileUpload::make('picture')
+                Components\SpatieMediaLibraryFileUpload::make('people_picture')
                     ->label('Foto')
+                    ->collection('people_pictures')
                     ->image()
-                    ->columnSpan(2)
-                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
-                        return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                        ->prepend('tenants/' . tenant()->getTenantKey() . '/people/' . now()->format('Y-m-d') . '/');
-                    })
-                    ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/tenants/' . $file)),
+                    ->visibility('private')
+                    ->disk('s3')
+                    ->columnSpan(2),
                 Components\TextInput::make('name')
                     ->label('Nome')
                     ->lazy()
