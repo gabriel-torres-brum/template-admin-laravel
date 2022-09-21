@@ -74,10 +74,7 @@ class Create extends Component implements Forms\Contracts\HasForms
                         Components\FileUpload::make('invoice')
                             ->label('Anexar nota fiscal')
                             ->visible(fn ($get) => $get('type') === '2')
-                            ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
-                                return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                                ->prepend('tenants/' .tenant()->getTenantKey() . '/financialTransactions/' . now()->format('Y-m-d') . '/');
-                            })
+                            ->disk('s3')
                             ->columnSpan(2),
                     ])
                     ->columns(2)

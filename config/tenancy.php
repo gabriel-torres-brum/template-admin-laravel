@@ -29,7 +29,7 @@ return [
     'bootstrappers' => [
         // Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class,
-        // Stancl\Tenancy\Bootstrappers\FilesystemTenancyBootstrapper::class,
+        Stancl\Tenancy\Bootstrappers\FilesystemTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\QueueTenancyBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\RedisTenancyBootstrapper::class, // Note: phpredis is needed
     ],
@@ -100,9 +100,9 @@ return [
          */
         'suffix_base' => 'tenant',
         'disks' => [
-            'local',
-            'public',
-            // 's3',
+            // 'local',
+            // 'public',
+            's3',
         ],
 
         /**
@@ -112,8 +112,8 @@ return [
          */
         'root_override' => [
             // Disks whose roots should be overriden after storage_path() is suffixed.
-            'local' => '%storage_path%/app/',
-            'public' => '%storage_path%/app/public/',
+            // 'local' => '%storage_path%/app/',
+            // 'public' => '%storage_path%/app/public/',
         ],
 
         /**

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Stancl\Tenancy\Database\Concerns\HasDomains;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 
-class Tenant extends BaseTenant
+class Tenant extends BaseTenant implements HasMedia
 {
-    use HasDomains;
+    use HasDomains, InteractsWithMedia;
 
     protected $fillable = [
         'id',

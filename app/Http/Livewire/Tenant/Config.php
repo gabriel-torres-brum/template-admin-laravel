@@ -42,14 +42,12 @@ class Config extends Component implements Forms\Contracts\HasForms
     {
         $form = [
             Components\Card::make([
-                Components\FileUpload::make('logo')
-                    ->label('Logo')
+                Components\SpatieMediaLibraryFileUpload::make('logo')
+                    ->label('Logotipo')
+                    ->collection('logos')
                     ->image()
-                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
-                        return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                        ->prepend('tenants/' . tenant()->getTenantKey() . '/logo/');
-                    })
-                    ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/' . $file)),
+                    ->visibility('private')
+                    ->disk('s3'),
                 Components\TextInput::make('name')
                     ->label('Nome')
                     ->required(),
