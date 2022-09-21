@@ -36,8 +36,10 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->label('Data de inclusão')
                 ->sortable()
                 ->searchable(),
-            Tables\Columns\SpatieMediaLibraryImageColumn::make('picture')
+            Tables\Columns\SpatieMediaLibraryImageColumn::make('people_picture')
                 ->label('Foto')
+                ->visibility('private')
+                ->collection('people_pictures')
                 ->rounded(),
             Tables\Columns\TextColumn::make('name')
                 ->label('Nome')

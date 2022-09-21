@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('description');
             $table->string('number');
             $table->string('shipping_date')->nullable();
-            $table->string('copy_picture')->nullable(); // image
 
             $table->foreignUuid('person_id')->constrained()->cascadeOnDelete();
             

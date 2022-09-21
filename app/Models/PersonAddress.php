@@ -16,7 +16,16 @@ class PersonAddress extends Model
         return 'person';
     }
 
-    protected $guarded = [];
+    protected $fillable = [
+        'cep',
+        'address',
+        'number',
+        'adjunct',
+        'district',
+        'city',
+        'state',
+        'person_id'
+    ];
 
     public function person()
     {

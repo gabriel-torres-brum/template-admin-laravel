@@ -11,7 +11,6 @@ use Livewire\Component;
 use Filament\Forms;
 use Filament\Forms\Components;
 use Filament\Notifications\Notification;
-use Livewire\TemporaryUploadedFile;
 
 class Config extends Component implements Forms\Contracts\HasForms
 {
@@ -31,10 +30,9 @@ class Config extends Component implements Forms\Contracts\HasForms
         $this->form->fill([
             'name' => $this->tenant->name,
             'cnpj' => $this->tenant->cnpj,
-            'logo' => $this->tenant->logo,
-            'tenantPhones' => TenantPhone::all(),
-            'tenantAddresses' => TenantAddress::all(),
-            'tenantEmails' => TenantEmail::all()
+            'tenantPhones' => $this->tenant->tenantPhones,
+            'tenantAddresses' => $this->tenant->tenantAddresses,
+            'tenantEmails' => $this->tenant->tenantEmails
         ]);
     }
 

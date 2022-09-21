@@ -6,8 +6,8 @@
         x-cloak
     ></div>
     <aside
-        class="fixed z-40 h-full w-80 flex-none -translate-x-80 overflow-y-auto border-r border-gray-200 bg-white px-4 shadow-md transition dark:border-gray-700 dark:bg-gray-800 md:!translate-x-0"
-        :class="{ '!-translate-x-80': !showDrawer, '!translate-x-0': showDrawer }"
+        class="fixed z-40 h-full w-72 flex-none -translate-x-72 overflow-y-auto border-r border-gray-200 bg-white px-4 shadow-md transition dark:border-gray-700 dark:bg-gray-800 md:!translate-x-0"
+        :class="{ '!-translate-x-72': !showDrawer, '!translate-x-0': showDrawer }"
     >
 
         <div class="relative flex h-24 items-center">

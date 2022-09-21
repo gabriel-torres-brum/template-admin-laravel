@@ -2,13 +2,11 @@
     <div class="h-full">
         <x-drawer />
         <div
-            class="flex h-full flex-1 flex-col transition md:ml-80 md:translate-x-0"
+            class="flex h-full flex-1 flex-col transition md:ml-72 md:translate-x-0 relative"
             :class="{ 'translate-x-8': showDrawer }"
         >
 
             <x-header />
-
-            <x-preloader />
             
             <div class="w-full flex-none px-4 sm:px-8">
                 {{ Breadcrumbs::render() }}

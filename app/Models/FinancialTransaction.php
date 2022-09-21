@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
-class FinancialTransactions extends Model implements HasMedia
+class FinancialTransaction extends Model implements HasMedia
 {
     use HasFactory, Uuid, BelongsToTenant, InteractsWithMedia;
 

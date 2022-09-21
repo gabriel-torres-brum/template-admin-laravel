@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Tenant\People;
 
 use App\Http\Services\ViaCepService;
 use App\Models\Person;
+use App\Models\PersonDocument;
 use Livewire\Component;
 
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Livewire\TemporaryUploadedFile;
@@ -51,28 +53,18 @@ class Edit extends Component implements Forms\Contracts\HasForms
     {
         $form = [
             Components\Card::make([
-                Components\FileUpload::make('people_picture')
+                Components\SpatieMediaLibraryFileUpload::make('people_picture')
                     ->label('Foto')
-                    ->image()
                     ->collection('people_pictures')
+                    ->image()
+                    ->enableDownload()
+                    ->enableOpen()
                     ->visibility('private')
-                    ->disk('s3')
-                    ->columnSpan(2),
-                // ->getUploadedFileNameForStorageUsing(
-                //     function (TemporaryUploadedFile $file, $get): string {
-                //         $fileName = 'picture-' . str($get('name'))->slug();
-
-                //         $finalFileName = str($fileName)
-                //             ->prepend('people/')
-                //             ->append('.' . $file->getClientOriginalExtension());
-
-                //         return $finalFileName;
-                //     }
-                // ),
+                    ->disk('s3'),
                 Components\TextInput::make('name')
                     ->label('Nome')
+                    ->unique('people', 'name', $this->person)
                     ->lazy()
-                    ->unique()
                     ->required(),
                 Components\Select::make('gender')
                     ->options([
@@ -135,12 +127,12 @@ class Edit extends Component implements Forms\Contracts\HasForms
                         ->label('Batizado(a)'),
                     Components\Toggle::make('is_in_discipline')
                         ->label('Em disciplina'),
-                ])->columns(3),
+                ]),
                 Components\Card::make([
                     Components\Repeater::make('personPhones')
                         ->label('Telefones')
                         ->collapsible()
-                        ->relationship('personPhones')
+                        ->relationship()
                         ->createItemButtonLabel('Adicionar telefone')
                         ->schema([
                             Components\TextInput::make('number')
@@ -148,17 +140,14 @@ class Edit extends Component implements Forms\Contracts\HasForms
                                 ->extraInputAttributes(['x-mask:dynamic' => "\$input.indexOf('9', 5) === 5 ? '(99) 99999-9999' : '(99) 9999-9999'"])
                                 ->required(),
                         ])
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('Telefones'),
                 Components\Card::make([
                     Components\Repeater::make('personAddresses')
                         ->label('Endereços')
                         ->collapsible()
-                        ->relationship('personAddresses')
+                        ->relationship()
                         ->createItemButtonLabel('Adicionar endereço')
                         ->schema([
                             Components\TextInput::make('cep')
@@ -197,18 +186,14 @@ class Edit extends Component implements Forms\Contracts\HasForms
                                 ->label('Estado')
                                 ->required(),
                         ])
-                        ->columns(3)
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('Endereços'),
                 Components\Card::make([
                     Components\Repeater::make('personEmails')
                         ->label('Emails')
                         ->collapsible()
-                        ->relationship('personEmails')
+                        ->relationship()
                         ->createItemButtonLabel('Adicionar email')
                         ->schema([
                             Components\TextInput::make('email')
@@ -216,17 +201,14 @@ class Edit extends Component implements Forms\Contracts\HasForms
                                 ->email()
                                 ->required(),
                         ])
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('E-mails'),
                 Components\Card::make([
                     Components\Repeater::make('personDocuments')
                         ->label('Documentos')
                         ->collapsible()
-                        ->relationship('personDocuments')
+                        ->relationship()
                         ->createItemButtonLabel('Adicionar documento')
                         ->schema([
                             Components\TextInput::make('description')
@@ -239,25 +221,23 @@ class Edit extends Component implements Forms\Contracts\HasForms
                                 ->format('Y-m-d')
                                 ->displayFormat("d/m/Y")
                                 ->label('Data de expedição'),
-                            Components\FileUpload::make('copy_picture')
+                            Components\SpatieMediaLibraryFileUpload::make('people_document_copy_picture')
                                 ->label('Anexar cópia')
-                                ->columnSpan(2)
+                                ->model('App\Models\PersonDocument')
+                                ->collection('people_document_copy_pictures')
+                                // ->saveRelationshipsUsing(function (Components\Repeater $component, HasForms $livewire, ?array $state) {
+                                //     // $livewire->getComponentFileAttachment();
+                                //     dd($state);
+                                // })
+                                ->enableDownload()
+                                ->enableOpen()
                                 ->visibility('private')
-                                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
-                                    return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                                        ->prepend('tenants/' . tenant()->getTenantKey() . '/people/documents/' . now()->format('Y-m-d') . '/');
-                                })
-                                ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/' . $file)),
+                                ->disk('s3'),
                         ])
-                        ->columns(2)
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('Documentos')
             ])
-                ->columns(2)
 
         ];
 
@@ -289,7 +269,11 @@ class Edit extends Component implements Forms\Contracts\HasForms
         // ]);
 
         // $this->user->push();
-        $this->person->fill($personForm)->save();
+        $person = $this->person->fill($personForm)->save();
+
+        // dd($this->personForm);
+
+        // $this->personForm->model($person)->saveRelationships();
 
         Notification::make()
             ->title('Informações do membro atualizadas com sucesso!')

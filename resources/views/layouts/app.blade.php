@@ -28,7 +28,7 @@
             document.documentElement.classList.remove("dark")
         }
     </script>
-    
+
     <!-- Fonts -->
     <link
         href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"
@@ -43,10 +43,8 @@
 </head>
 
 <body x-data="drawer()">
-    @guest
+    <main class="relative h-full">
         <x-preloader />
-    @endguest
-    <main class="h-full">
         {{ $slot }}
     </main>
 

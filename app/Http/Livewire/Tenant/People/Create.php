@@ -40,9 +40,10 @@ class Create extends Component implements Forms\Contracts\HasForms
                     ->label('Foto')
                     ->collection('people_pictures')
                     ->image()
+                    ->enableDownload()
+                    ->enableOpen()
                     ->visibility('private')
-                    ->disk('s3')
-                    ->columnSpan(2),
+                    ->disk('s3'),
                 Components\TextInput::make('name')
                     ->label('Nome')
                     ->lazy()
@@ -109,7 +110,7 @@ class Create extends Component implements Forms\Contracts\HasForms
                         ->label('Batizado(a)'),
                     Components\Toggle::make('is_in_discipline')
                         ->label('Em disciplina'),
-                ])->columns(3),
+                ]),
                 Components\Card::make([
                     Components\Repeater::make('personPhones')
                         ->label('Telefones')
@@ -122,11 +123,8 @@ class Create extends Component implements Forms\Contracts\HasForms
                                 ->extraInputAttributes(['x-mask:dynamic' => "\$input.indexOf('9', 5) === 5 ? '(99) 99999-9999' : '(99) 9999-9999'"])
                                 ->required(),
                         ])
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('Telefones'),
                 Components\Card::make([
                     Components\Repeater::make('personAddresses')
@@ -171,12 +169,8 @@ class Create extends Component implements Forms\Contracts\HasForms
                                 ->label('Estado')
                                 ->required(),
                         ])
-                        ->columns(3)
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('Endereços'),
                 Components\Card::make([
                     Components\Repeater::make('personEmails')
@@ -190,11 +184,8 @@ class Create extends Component implements Forms\Contracts\HasForms
                                 ->email()
                                 ->required(),
                         ])
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('E-mails'),
                 Components\Card::make([
                     Components\Repeater::make('personDocuments')
@@ -213,25 +204,18 @@ class Create extends Component implements Forms\Contracts\HasForms
                                 ->format('Y-m-d')
                                 ->displayFormat("d/m/Y")
                                 ->label('Data de expedição'),
-                            Components\FileUpload::make('copy_picture')
+                            Components\SpatieMediaLibraryFileUpload::make('people_document_copy_picture')
                                 ->label('Anexar cópia')
-                                ->columnSpan(2)
+                                ->collection('people_document_copy_pictures')
+                                ->enableDownload()
+                                ->enableOpen()
                                 ->visibility('private')
-                                ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
-                                    return str($file->generateHashNameWithOriginalNameEmbedded($file))
-                                    ->prepend('tenants/' . tenant()->getTenantKey() . '/people/documents/' . now()->format('Y-m-d') . '/');
-                                })
-                                ->getUploadedFileUrlUsing(fn ($file) => global_asset('storage/tenants/' . $file)),
+                                ->disk('s3'),
                         ])
-                        ->columns(2)
-                        ->columnSpan(2)
                         ->defaultItems(0)
                 ])
-                    ->columns(2)
-                    ->columnSpan(2)
                     ->label('Documentos')
             ])
-                            ->columns(2)
         ];
 
         return $form;

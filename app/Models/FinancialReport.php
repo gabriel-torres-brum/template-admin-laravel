@@ -15,6 +15,6 @@ class FinancialReport extends Model
 
     public function financialTransactions()
     {
-        return $this->belongsToMany(FinancialTransactions::class, 'financial_reports_transactions');
+        return $this->belongsToMany(FinancialTransaction::class, 'financial_reports_transactions');
     }
 }

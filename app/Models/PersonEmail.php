@@ -16,7 +16,10 @@ class PersonEmail extends Model
         return 'person';
     }
 
-    protected $guarded = [];
+    protected $fillable = [
+        'email',
+        'person_id'
+    ];
 
     public function person()
     {

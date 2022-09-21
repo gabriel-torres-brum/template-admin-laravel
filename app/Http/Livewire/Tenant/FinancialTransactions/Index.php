@@ -2,22 +2,22 @@
 
 namespace App\Http\Livewire\Tenant\FinancialTransactions;
 
-use App\Models\FinancialTransactions;
+use App\Models\FinancialTransaction;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
 use Filament\Tables;
+use Filament\Forms;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 
 class Index extends Component implements Tables\Contracts\HasTable
 {
-    use Tables\Concerns\InteractsWithTable;
+    use Tables\Concerns\InteractsWithTable, Forms\Concerns\InteractsWithForms;
 
     protected function getTableQuery(): Builder
     {
-        return FinancialTransactions::query()
+        return FinancialTransaction::query()
             ->orderByRaw("status = '3' ASC");
     }
 
@@ -96,31 +96,21 @@ class Index extends Component implements Tables\Contracts\HasTable
                 })
                 ->sortable()
                 ->searchable(),
-            // Tables\Columns\BadgeColumn::make('gender')
-            //     ->label('Gênero')
-            //     ->sortable()
-            //     ->searchable(),
+            Tables\Columns\SpatieMediaLibraryImageColumn::make('financial_transactions_invoice')
+                ->label('Foto')
+                ->visibility('private')
+                ->collection('financial_transactions_invoices')
+                ->disk('s3')
+                ->rounded(),
         ];
     }
 
     protected function getTableActions(): array
     {
         return [
-            Tables\Actions\Action::make('Comprovante')
-                ->icon('heroicon-s-download')
-                ->visible(fn (FinancialTransactions $record) => is_file(storage_path("app/public/tenants/" . tenant()->getTenantKey() . "{$record->invoice}")))
-                ->color('primary')
-                ->action(function (FinancialTransactions $record) {
-                    if ($record->invoice) {
-                        $fileExtension = pathinfo(storage_path("app/public/tenants/" . tenant()->getTenantKey() . "{$record->invoice}"), PATHINFO_EXTENSION);
-                        $description = str($record->description)->slug('_');
-                        return response()
-                            ->download(
-                                storage_path("app/public/tenants/" . tenant()->getTenantKey() . "{$record->invoice}"),
-                                "{$record->created_at->format('Y-m-d_H-i-s')}_{$description}_comprovante_transacao_financeira.{$fileExtension}"
-                            );
-                    }
-                }),
+            Tables\Actions\EditAction::make('editar')
+                ->icon('heroicon-o-pencil')
+                ->url(fn (FinancialTransaction $record): string => tenantRoute('financialTransactions.edit', ['financialTransaction' => $record])),
             Tables\Actions\Action::make('anular')
                 ->modalHeading('Anular transação financeira')
                 ->modalButton('Anular')
@@ -128,9 +118,7 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->icon('heroicon-s-ban')
                 ->color('danger')
                 ->requiresConfirmation()
-                ->action(function (FinancialTransactions $record) {
-                    // $record->status = 3;
-                    // $record->save();
+                ->action(function (FinancialTransaction $record) {
                     $record->delete();
                     Notification::make()
                         ->title('Transação financeira anulada com sucesso!')
@@ -148,8 +136,6 @@ class Index extends Component implements Tables\Contracts\HasTable
                 ->color('warning')
                 ->action(function (Collection $records): void {
                     foreach ($records as $record) {
-                        // $record->status = 3;
-                        // $record->save();
                         $record->delete();
                     }
                 })

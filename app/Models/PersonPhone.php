@@ -16,7 +16,10 @@ class PersonPhone extends Model
         return 'person';
     }
 
-    protected $guarded = [];
+    protected $fillable = [
+        'number',
+        'person_id'
+    ];
 
     public function person()
     {

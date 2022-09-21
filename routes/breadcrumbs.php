@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\EcclesiasticalRole;
+use App\Models\FinancialTransaction;
 use App\Models\Person;
 use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
@@ -31,6 +32,14 @@ if (tenant()) {
         $trail->push('Incluir transações financeiras', tenantRoute('financialTransactions.create'));
     });
 
+    Breadcrumbs::for('financialTransactions.edit', function (BreadcrumbTrail $trail): void {
+        $trail->parent('financialTransactions.index');
+
+        $financialTransaction = request()->financialTransaction;
+     
+        $trail->push($financialTransaction->description, tenantRoute('financialTransactions.edit', ['financialTransaction' => $financialTransaction]));
+    });
+
     // -- Usuários --
     Breadcrumbs::for('users.index', function (BreadcrumbTrail $trail): void {
         $trail->parent('dashboard');
@@ -44,7 +53,8 @@ if (tenant()) {
         $trail->push('Incluir usuário', tenantRoute('users.create'));
     });
      
-    Breadcrumbs::for('users.edit', function (BreadcrumbTrail $trail, User $user): void {
+    Breadcrumbs::for('users.edit', function (BreadcrumbTrail $trail): void {
+        $user = request()->user;
         $trail->parent('users.index');
         
         $trail->push($user->name, tenantRoute('users.edit', ['user' => $user]));
@@ -63,8 +73,10 @@ if (tenant()) {
         $trail->push('Incluir membro', tenantRoute('people.create'));
     });
      
-    Breadcrumbs::for('people.edit', function (BreadcrumbTrail $trail, Person $person): void {
+    Breadcrumbs::for('people.edit', function (BreadcrumbTrail $trail): void {
         $trail->parent('people.index');
+
+        $person = request()->person;
         
         $trail->push($person->name, tenantRoute('people.edit', ['person' => $person]));
     });
@@ -82,8 +94,10 @@ if (tenant()) {
         $trail->push('Incluir membro', tenantRoute('ecclesiasticalRoles.create'));
     });
      
-    Breadcrumbs::for('ecclesiasticalRoles.edit', function (BreadcrumbTrail $trail, EcclesiasticalRole $ecclesiasticalRole): void {
+    Breadcrumbs::for('ecclesiasticalRoles.edit', function (BreadcrumbTrail $trail): void {
         $trail->parent('ecclesiasticalRoles.index');
+
+        $ecclesiasticalRole = request()->ecclesiasticalRole;
         
         $trail->push($ecclesiasticalRole->name, tenantRoute('ecclesiasticalRoles.edit', ['ecclesiasticalRole' => $ecclesiasticalRole]));
     });

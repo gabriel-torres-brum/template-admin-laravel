@@ -14,7 +14,25 @@ class Person extends Model implements HasMedia
 {
     use HasFactory, Uuid, BelongsToTenant, InteractsWithMedia;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'gender',
+        'birthday',
+        'marital_status',
+        'birthplace',
+        'is_baptized',
+        'is_tither',
+        'is_in_discipline',
+        'father_name',
+        'mother_name',
+        'baptism_date',
+        'receipt_date',
+        'affiliation_date',
+        'church_from',
+        'tenant_id',
+        'user_id',
+        'ecclesiastical_role_id',
+    ];
 
     protected $casts = [
         'birthday' => 'date',

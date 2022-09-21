@@ -62,6 +62,7 @@ Route::group([
         Route::get('cargos-eclesiasticos/adicionar', Livewire\EcclesiasticalRoles\Create::class)->name('ecclesiasticalRoles.create');
 
         Route::get('lancamentos', Livewire\FinancialTransactions\Index::class)->name('financialTransactions.index');
+        Route::get('lancamentos/editar/{financialTransaction}', Livewire\FinancialTransactions\Edit::class)->name('financialTransactions.edit');
         Route::get('lancamentos/adicionar', Livewire\FinancialTransactions\Create::class)->name('financialTransactions.create');
 
         Route::get('sair', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
