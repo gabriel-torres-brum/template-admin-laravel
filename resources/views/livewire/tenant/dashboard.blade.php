@@ -8,8 +8,9 @@
     <span class="text-lg">
         {{ $dashboardText }}
     </span>
-    <div class="mt-2 mb-6"></div>
-    <x-card title="Administrativo">
+    <x-divider class="mt-2 mb-6 dark:border-gray-800" />
+    <div class="gap-4 flex flex-col">
+        <h5 class="tracking-tight font-extrabold">Administrativo</h5>
         <div class="grid grid-cols-12 gap-4">
             <x-dashboard-card
                 class="col-span-12 bg-cyan-300 dark:!bg-cyan-800 md:col-span-6 lg:col-span-4"
@@ -67,10 +68,11 @@
                 </x-slot>
             </x-dashboard-card>
         </div>
-    </x-card>
+    </div>
     <div class="mt-2 mb-6"></div>
-    <x-card title="Financeiro">
-        <div class="grid grid-cols-12 gap-4">
+    <div class="gap-4 flex flex-col">
+        <h5 class="tracking-tight font-extrabold">Financeiro</h5>
+        <div class="grid grid-cols-12">
             <x-dashboard-card
                 class="col-span-12 bg-teal-300 dark:!bg-teal-800 md:col-span-6 lg:col-span-4"
                 route="financialTransactions.index"
@@ -90,5 +92,5 @@
                 </x-slot>
             </x-dashboard-card>
         </div>
-    </x-card>
+    </div>
 </div>

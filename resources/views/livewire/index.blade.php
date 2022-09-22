@@ -19,7 +19,7 @@
         </x-button.circle>
     </header>
     <div
-        class="flex h-80 items-center justify-center bg-gray-200 dark:bg-gray-700">
+        class="flex h-80 items-center justify-center bg-gray-200 dark:bg-gray-800">
         <div class="flex flex-col gap-2 p-6">
             <h5 class="text-2xl font-extrabold tracking-tight text-center">
                 Sistema de gerenciamento para igrejas

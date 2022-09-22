@@ -1,28 +1,33 @@
-<header class="w-full">
-    <nav
-        class="flex h-24 items-center border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-        <div
-            class="mx-auto flex flex-1 flex-wrap items-center justify-between px-4 py-2.5 md:px-8">
-            <div class="flex items-center gap-4">
-                <x-button.circle
-                    class="h-5 w-5 md:hidden"
-                    x-on:click="toggleDrawer()"
-                    icon="menu"
+<header
+    class="fixed inset-x-0 top-0 z-30 flex h-16 items-center border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
+>
+    <div class="mx-auto flex flex-1 flex-wrap items-center justify-between px-2 sm:px-6">
+        <div class="flex items-center gap-4">
+            <x-button.circle
+                class="md:hidden"
+                x-on:click="toggleDrawer()"
+                white
+                sm
+            >
+                <x-icon
+                    class="h-4 w-4"
+                    name="bars-4"
+                    solid
                 />
-                <a
-                    class="uppercase"
-                    href="{{ tenant() ? tenantRoute('dashboard') : route('dashboard') }}"
-                >
-                    @if (tenant())
-                        {{ tenant()->id }}
-                    @else
-                        Administração
-                    @endif
-                </a>
-            </div>
-            <div class="flex flex-1 items-center justify-end">
-                <x-user-dropdown />
-            </div>
+            </x-button.circle>
+            <a
+                class="uppercase"
+                href="{{ tenant() ? tenantRoute('dashboard') : route('dashboard') }}"
+            >
+                @if (tenant())
+                    {{ tenant()->id }}
+                @else
+                    Administração
+                @endif
+            </a>
         </div>
-    </nav>
+        <div class="flex flex-1 items-center justify-end">
+            <x-user-dropdown />
+        </div>
+    </div>
 </header>

@@ -1,21 +1,22 @@
 <x-app-layout>
-    <div class="mb-6 flex min-h-screen">
+    <div class="flex min-h-screen">
         <x-drawer />
         <div
-            class="relative flex flex-1 flex-col overflow-hidden transition md:ml-72 md:translate-x-0"
+            class="flex flex-1 overflow-hidden transition md:ml-64 md:translate-x-0 mb-6"
             :class="{ 'translate-x-8': showDrawer }"
         >
             <x-header />
 
-            <div class="w-full flex-none px-4 sm:px-8">
-                {{ Breadcrumbs::render() }}
-            </div>
-
-            <div class="relative m-4 flex flex-1 flex-col gap-8 sm:m-8">
-                <h2 class="w-full flex-none text-3xl font-extrabold tracking-tight">
-                    @stack('title')
-                </h2>
-                {{ $slot }}
+            <div class="relative flex flex-1 flex-col mt-16 mx-2 sm:mx-6 overflow-y-auto">
+                <div class="w-full">
+                    {{ Breadcrumbs::render() }}
+                </div>
+                <section>
+                    {{-- <h2 class="w-full flex-none text-3xl font-extrabold tracking-tight">
+                        @stack('title')
+                    </h2> --}}
+                    {{ $slot }}
+                </section>
             </div>
         </div>
     </div>

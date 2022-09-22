@@ -11,10 +11,12 @@
         x-on:click="userDropdown = !userDropdown"
         x-on:click.away="userDropdown = false"
         white
+        sm
     >
         <x-icon
-            class="h-5 w-5"
-            name="bars-4"
+            class="h-4 w-4"
+            name="adjustments-vertical"
+            solid
         />
     </x-button.circle>
 
@@ -25,7 +27,7 @@
         x-show="userDropdown"
     >
         <div class="py-3 px-4">
-            <span class="block text-sm text-gray-900 dark:text-white">
+            <span class="block text-sm text-gray-600 dark:text-white">
                 {{ auth()->user()->name }}
             </span>
             <span
@@ -80,7 +82,6 @@
                     </x-slot>
                 </x-dropdown-menu-link>
             </li>
-            <x-divider />
             <li>
                 <x-dropdown-menu-link :route="tenant() ? 'logout' : 'admin.logout'">
                     <x-slot name="label">

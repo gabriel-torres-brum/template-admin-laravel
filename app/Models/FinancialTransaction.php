@@ -14,4 +14,9 @@ class FinancialTransaction extends Model implements HasMedia
     use HasFactory, Uuid, BelongsToTenant, InteractsWithMedia;
 
     protected $guarded = [];
+
+    public function financialReports()
+    {
+        return $this->belongsToMany(FinancialReport::class, FinancialReportFinancialTransaction::class);
+    }
 }

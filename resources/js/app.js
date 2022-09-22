@@ -5,7 +5,11 @@ import Focus from "@alpinejs/focus"
 import Collapse from "@alpinejs/collapse"
 import NotificationsAlpinePlugin from '../../vendor/filament/notifications/dist/module.esm'
 import FormsAlpinePlugin from '../../vendor/filament/forms/dist/module.esm'
-import '../../vendor/filament/forms/dist/module.esm.css';
+
+import "@fontsource/roboto";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "@fontsource/roboto/900.css";
 
 Alpine.plugin(Mask)
 Alpine.plugin(Persist)

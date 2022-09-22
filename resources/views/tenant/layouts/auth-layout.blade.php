@@ -12,7 +12,7 @@
                 </a>
             </div>
             <div
-                class="flex flex-col justify-center rounded-xl border border-gray-200 bg-white p-8 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+                class="flex flex-col justify-center rounded-xl border border-gray-200 bg-white p-8 shadow-lg dark:border-gray-700 dark:bg-gray-800">
                 <x-divider class="mb-2" />
                 {{ $head }}
                 <x-divider class="mt-2" />

@@ -15,8 +15,17 @@ return new class extends Migration
     {
         Schema::create('financial_reports_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('financial_transaction_id')->constrained();
             $table->foreignUuid('financial_report_id')->constrained();
+            $table->foreignUuid('financial_transaction_id')->constrained();
+            $table->string('tenant_id');
+
+            $table->foreign('tenant_id')
+                ->references('id')
+                ->on(
+                    'tenants'
+                )
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -27,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('financial_reports_financial_transactions');
+        Schema::dropIfExists('financial_reports_transactions');
     }
 };

@@ -19,6 +19,19 @@ if (tenant()) {
         $trail->push('Configurações', tenantRoute('config'), ['icon' => 'cog']);
     });
 
+    // -- Relatórios Financeiros --
+    Breadcrumbs::for('financialReports.index', function (BreadcrumbTrail $trail): void {
+        $trail->parent('dashboard');
+    
+        $trail->push('Relatórios financeiros', tenantRoute('financialReports.index'), ['icon' => 'clipboard-document']);
+    });
+
+    Breadcrumbs::for('financialReports.create', function (BreadcrumbTrail $trail): void {
+        $trail->parent('financialReports.index');
+     
+        $trail->push('Criar relatório financeiro', tenantRoute('financialReports.create'));
+    });
+
     // -- Transações Financeiras --
     Breadcrumbs::for('financialTransactions.index', function (BreadcrumbTrail $trail): void {
         $trail->parent('dashboard');

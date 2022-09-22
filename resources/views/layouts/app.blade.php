@@ -29,13 +29,6 @@
         }
     </script>
 
-    <!-- Fonts -->
-    <link
-        href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-
     @wireUiScripts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -43,10 +36,9 @@
 </head>
 
 <body x-data="drawer()">
-    <main class="relative h-full">
-        <x-preloader />
-        {{ $slot }}
-    </main>
+    <x-preloader />
+    
+    {{ $slot }}
 
     @livewire('notifications')
     @livewireScripts

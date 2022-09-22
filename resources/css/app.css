@@ -1,3 +1,4 @@
+@import '../../vendor/filament/forms/dist/module.esm.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,13 +7,9 @@ html {
     @apply scroll-smooth;
 }
 
-html, body {
-    height: 100%;
-}
-
 body {
-    @apply text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 antialiased;
-    font-family: 'Nunito', sans-serif;
+    @apply text-gray-600 dark:text-gray-200 bg-gray-100 dark:bg-gray-900 antialiased;
+    font-family: "Roboto", sans-serif;
 }
 
 [x-cloak], [hidden] {

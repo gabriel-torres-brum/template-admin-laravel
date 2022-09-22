@@ -11,10 +11,19 @@ class FinancialReport extends Model
 {
     use HasFactory, Uuid, BelongsToTenant;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'description',
+        'begin_period',
+        'final_period',
+    ];
+
+    protected $casts = [
+        'begin_period' => 'date',
+        'final_period' => 'date',
+    ];
 
     public function financialTransactions()
     {
-        return $this->belongsToMany(FinancialTransaction::class, 'financial_reports_transactions');
+        return $this->belongsToMany(FinancialTransaction::class, FinancialReportFinancialTransaction::class);
     }
 }
