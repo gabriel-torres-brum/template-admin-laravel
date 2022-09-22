@@ -96,20 +96,18 @@ class Index extends Component implements Tables\Contracts\HasTable
                 })
                 ->sortable()
                 ->searchable(),
-            Tables\Columns\SpatieMediaLibraryImageColumn::make('financial_transactions_invoice')
-                ->label('Foto')
-                ->visibility('private')
-                ->collection('financial_transactions_invoices')
-                ->disk('s3')
-                ->rounded(),
         ];
     }
 
     protected function getTableActions(): array
     {
         return [
-            Tables\Actions\EditAction::make('editar')
-                ->icon('heroicon-o-pencil')
+            Tables\Actions\Action::make('comprovante')
+                ->icon('heroicon-o-paper-clip')
+                ->disabled()
+                ->visible(fn (FinancialTransaction $record) => count($record->media->toArray() ?? []) > 0),
+            Tables\Actions\Action::make('visualizar')
+                ->icon('heroicon-o-eye')
                 ->url(fn (FinancialTransaction $record): string => tenantRoute('financialTransactions.edit', ['financialTransaction' => $record])),
             Tables\Actions\Action::make('anular')
                 ->modalHeading('Anular transação financeira')
