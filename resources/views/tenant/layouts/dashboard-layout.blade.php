@@ -3,7 +3,7 @@
     <div class="min-h-screen flex transition md:ml-64 md:translate-x-0" :class="{ 'translate-x-8': showDrawer }">
         <x-header />
 
-        <div class="pt-16 px-2 sm:px-6 overflow-auto flex-1">
+        <div class="pt-16 px-2 sm:px-6 overflow-auto flex-1 mb-6">
             <div class="w-full">
                 {{ Breadcrumbs::render() }}
             </div>
