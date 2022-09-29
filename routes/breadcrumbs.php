@@ -8,7 +8,6 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 if (tenant()) {
-
     Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail): void {
         $trail->push('Início', tenantRoute('dashboard'), ['icon' => 'home']);
     });
@@ -17,19 +16,6 @@ if (tenant()) {
         $trail->parent('dashboard');
     
         $trail->push('Configurações', tenantRoute('config'), ['icon' => 'cog']);
-    });
-
-    // -- Relatórios Financeiros --
-    Breadcrumbs::for('financialReports.index', function (BreadcrumbTrail $trail): void {
-        $trail->parent('dashboard');
-    
-        $trail->push('Relatórios financeiros', tenantRoute('financialReports.index'), ['icon' => 'clipboard-document']);
-    });
-
-    Breadcrumbs::for('financialReports.create', function (BreadcrumbTrail $trail): void {
-        $trail->parent('financialReports.index');
-     
-        $trail->push('Criar relatório financeiro', tenantRoute('financialReports.create'));
     });
 
     // -- Transações Financeiras --
@@ -98,13 +84,13 @@ if (tenant()) {
     Breadcrumbs::for('ecclesiasticalRoles.index', function (BreadcrumbTrail $trail): void {
         $trail->parent('dashboard');
     
-        $trail->push('Membros', tenantRoute('ecclesiasticalRoles.index'), ['icon' => 'users']);
+        $trail->push('Cargos Eclesiásticos', tenantRoute('ecclesiasticalRoles.index'), ['icon' => 'users']);
     });
 
     Breadcrumbs::for('ecclesiasticalRoles.create', function (BreadcrumbTrail $trail): void {
         $trail->parent('ecclesiasticalRoles.index');
      
-        $trail->push('Incluir membro', tenantRoute('ecclesiasticalRoles.create'));
+        $trail->push('Incluir cargo eclesiástico', tenantRoute('ecclesiasticalRoles.create'));
     });
      
     Breadcrumbs::for('ecclesiasticalRoles.edit', function (BreadcrumbTrail $trail): void {
@@ -114,9 +100,7 @@ if (tenant()) {
         
         $trail->push($ecclesiasticalRole->name, tenantRoute('ecclesiasticalRoles.edit', ['ecclesiasticalRole' => $ecclesiasticalRole]));
     });
-
 } else {
-
     Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail): void {
         $trail->push('Início', tenantRoute('admin.dashboard'), ['icon' => 'home']);
     });
@@ -138,5 +122,4 @@ if (tenant()) {
         
     //     $trail->push($user->name, tenantRoute('users.edit', $user));
     // });
-
 }

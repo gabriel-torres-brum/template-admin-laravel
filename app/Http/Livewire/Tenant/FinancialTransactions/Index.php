@@ -10,6 +10,8 @@ use Filament\Tables;
 use Filament\Forms;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class Index extends Component implements Tables\Contracts\HasTable
 {
@@ -131,13 +133,20 @@ class Index extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Actions\BulkAction::make('anular')
                 ->label('Anular selecionados')
-                ->color('warning')
+                ->icon('heroicon-s-trash')
+                ->color('danger')
                 ->action(function (Collection $records): void {
                     foreach ($records as $record) {
                         $record->delete();
                     }
                 })
                 ->requiresConfirmation(),
+            ExportBulkAction::make()->exports([
+                ExcelExport::make()
+                    ->fromTable()
+                    ->askForFilename(date('d-m-Y-H-i-s') . '-transacoes-financeiras', 'Nome do arquivo')
+                    ->askForWriterType('Csv', null, 'Tipo')
+            ])->label('Exportar como planilha')->modalButton('Exportar'),
         ];
     }
     public function render()

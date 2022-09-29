@@ -65,12 +65,12 @@ class Edit extends Component implements Forms\Contracts\HasForms
                     ->required(),
                 Components\TextInput::make('payment_method')
                     ->label('Forma de pagamento')
-                    ->visible(fn ($get) => $this->financialTransaction->type ?? $get('type') === '2')
+                    ->visible(fn ($get) => $get('type') === '2' || $this->financialTransaction->type === '2')
                     ->placeholder('Ex.: Dinheiro / PIX / Cartão De Crédito')
                     ->required(),
                 Components\Select::make('status')
                     ->label('Status')
-                    ->visible(fn ($get) => $this->financialTransaction->type ?? $get('type') === '2')
+                    ->visible(fn ($get) => $get('type') === '2' || $this->financialTransaction->type === '2')
                     ->options([
                         1 => 'Em aberto',
                         2 => 'Pago'
@@ -78,7 +78,7 @@ class Edit extends Component implements Forms\Contracts\HasForms
                     ->required(),
                 Components\SpatieMediaLibraryFileUpload::make('financial_transactions_invoice')
                     ->label('Anexar nota fiscal')
-                    ->visible(fn ($get) => $this->financialTransaction->type ?? $get('type') === '2')
+                    ->visible(fn ($get) => $get('type') === '2' || $this->financialTransaction->type === '2')
                     ->collection('financial_transactions_invoices')
                     ->enableDownload()
                     ->enableOpen()

@@ -10,6 +10,8 @@ use Filament\Tables;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class Index extends Component implements Tables\Contracts\HasTable
 {
@@ -18,7 +20,7 @@ class Index extends Component implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
         $person = Person::query();
-        
+
         // if ($this->page === 1) {
         //     $person->select(['people.*', 'users.id as user_id'])
         //     ->leftJoin('users', 'people.user_id', '=', 'users.id')
@@ -91,6 +93,7 @@ class Index extends Component implements Tables\Contracts\HasTable
             Tables\Actions\BulkAction::make('excluir')
                 ->label('Excluir selecionados')
                 ->color('danger')
+                ->icon('heroicon-s-trash')
                 ->hidden(fn (Person $record) => optional($record->user)->id === auth()->id())
                 ->action(function (Collection $records): void {
                     foreach ($records as $record) {
@@ -100,6 +103,12 @@ class Index extends Component implements Tables\Contracts\HasTable
                     }
                 })
                 ->requiresConfirmation(),
+            ExportBulkAction::make()->exports([
+                ExcelExport::make()
+                    ->fromTable()
+                    ->askForFilename(date('d-m-Y-H-i-s') . '-membros', 'Nome do arquivo')
+                    ->askForWriterType('Csv', null, 'Tipo')
+            ])->label('Exportar como planilha')->modalButton('Exportar'),
         ];
     }
     public function render(): View

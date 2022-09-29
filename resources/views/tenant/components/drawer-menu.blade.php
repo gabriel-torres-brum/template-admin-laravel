@@ -41,11 +41,6 @@
                     label="Transações Financeiras"
                     route="financialTransactions.index"
                 />
-                <x-drawer-menu-link
-                    icon="clipboard-document"
-                    label="Relatórios Financeiros"
-                    route="financialReports.index"
-                />
             </x-slot>
         </x-drawer-menu-link>
     </ul>

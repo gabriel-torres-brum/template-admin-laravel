@@ -9,6 +9,8 @@ use Filament\Tables;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class Index extends Component implements Tables\Contracts\HasTable
 {
@@ -57,12 +59,19 @@ class Index extends Component implements Tables\Contracts\HasTable
             Tables\Actions\BulkAction::make('excluir')
                 ->label('Excluir selecionados')
                 ->color('danger')
+                ->icon('heroicon-s-trash')
                 ->action(function (Collection $records): void {
                     foreach ($records as $record) {
                         $record->delete();
                     }
                 })
                 ->requiresConfirmation(),
+            ExportBulkAction::make()->exports([
+                ExcelExport::make()
+                    ->fromTable()
+                    ->askForFilename(date('d-m-Y-H-i-s') . '-cargos-eclesiasticos', 'Nome do arquivo')
+                    ->askForWriterType('Csv', null, 'Tipo')
+            ])->label('Exportar como planilha')->modalButton('Exportar'),
         ];
     }
     public function render(): View

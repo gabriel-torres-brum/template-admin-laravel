@@ -6,10 +6,12 @@ import Collapse from "@alpinejs/collapse"
 import NotificationsAlpinePlugin from '../../vendor/filament/notifications/dist/module.esm'
 import FormsAlpinePlugin from '../../vendor/filament/forms/dist/module.esm'
 
-import "@fontsource/roboto";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import "@fontsource/roboto/900.css";
+import "@fontsource/nunito";
+import "@fontsource/nunito/300.css";
+import "@fontsource/nunito/400.css";
+import "@fontsource/nunito/500.css";
+import "@fontsource/nunito/600.css";
+import "@fontsource/nunito/700.css";
 
 Alpine.plugin(Mask)
 Alpine.plugin(Persist)

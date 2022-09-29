@@ -65,10 +65,6 @@ Route::group([
         Route::get('lancamentos/editar/{financialTransaction}', Livewire\FinancialTransactions\Edit::class)->name('financialTransactions.edit');
         Route::get('lancamentos/adicionar', Livewire\FinancialTransactions\Create::class)->name('financialTransactions.create');
 
-        Route::get('relatorios-financeiros', Livewire\FinancialReports\Index::class)->name('financialReports.index');
-        Route::get('relatorios-financeiros/adicionar', Livewire\FinancialReports\Create::class)->name('financialReports.create');
-
-
         Route::get('sair', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
     });
 });
