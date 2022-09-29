@@ -77,6 +77,6 @@ Route::group([
         Route::get('lancamentos/editar/{financialTransaction}', TenantLivewire\FinancialTransactions\Edit::class)->name('financialTransactions.edit');
         Route::get('lancamentos/adicionar', TenantLivewire\FinancialTransactions\Create::class)->name('financialTransactions.create');
 
-        Route::get('sair', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+        Route::get('sair', [TenantControllers\Auth\LoginController::class, 'logout'])->name('logout');
     });
 });
