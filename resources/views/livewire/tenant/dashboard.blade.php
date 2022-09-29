@@ -13,7 +13,7 @@
         <h5 class="tracking-tight font-extrabold">Administrativo</h5>
         <div class="grid grid-cols-12 gap-4">
             <x-dashboard-card
-                class="col-span-12 bg-cyan-300 dark:!bg-cyan-800 md:col-span-6 lg:col-span-4"
+                class="col-span-12 bg-cyan-300 dark:!bg-cyan-900 md:col-span-6 lg:col-span-4"
                 route="people.index"
             >
                 <x-slot name="header">
@@ -31,8 +31,8 @@
                 </x-slot>
             </x-dashboard-card>
             <x-dashboard-card
-                class="col-span-12 bg-purple-300 dark:!bg-purple-800 md:col-span-6 lg:col-span-4"
-                route="people.index"
+                class="col-span-12 bg-purple-300 dark:!bg-purple-900 md:col-span-6 lg:col-span-4"
+                route="users.index"
             >
                 <x-slot name="header">
                     <div class="flex items-center gap-3">
@@ -49,7 +49,7 @@
                 </x-slot>
             </x-dashboard-card>
             <x-dashboard-card
-                class="col-span-12 bg-fuchsia-300 dark:!bg-fuchsia-800 md:col-span-6 lg:col-span-4"
+                class="col-span-12 bg-white dark:!bg-gray-700 md:col-span-6 lg:col-span-4"
                 route="config"
             >
                 <x-slot name="header">
@@ -74,7 +74,7 @@
         <h5 class="tracking-tight font-extrabold">Financeiro</h5>
         <div class="grid grid-cols-12">
             <x-dashboard-card
-                class="col-span-12 bg-teal-300 dark:!bg-teal-800 md:col-span-6 lg:col-span-4"
+                class="col-span-12 bg-teal-300 dark:!bg-teal-900 md:col-span-6 lg:col-span-4"
                 route="financialTransactions.index"
             >
                 <x-slot name="header">

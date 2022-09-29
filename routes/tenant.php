@@ -22,4 +22,48 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 
 // Route::fallback(fn () => redirect(tenantRoute('login.index')));
 
+Route::group([
+    'prefix' => '/{tenant}',
+    'middleware' => [
+        'web',
+        InitializeTenancyByPath::class,
+    ]
+], function () {
+    Route::post('livewire/message/{name}', [HttpConnectionHandler::class, '__invoke']);
+    Route::middleware('guest')->group(function () {
+        Route::get('login', [Controllers\Auth\LoginController::class, 'index'])->name('login.index');
+        Route::post('login', [Controllers\Auth\LoginController::class, 'handle'])->name('login.handle');
 
+        // Route::get('cadastro', [Controllers\Auth\RegistrationController::class, 'index'])->name('auth.registration.index');
+        // Route::post('cadastro', [Controllers\Auth\RegistrationController::class, 'handle'])->name('auth.registration.handle');
+
+        Route::get('esqueceu-a-senha', [Controllers\Auth\ForgotPasswordController::class, 'index'])->name('forgot-password.index');
+        Route::post('esqueceu-a-senha', [Controllers\Auth\ForgotPasswordController::class, 'handle'])->name('forgot-password.handle');
+
+        Route::get('/redefinir-senha/{token}', [Controllers\Auth\ForgotPasswordController::class, 'resetPasswordIndex'])->name('password.reset');
+        Route::post('/redefinir-senha', [Controllers\Auth\ForgotPasswordController::class, 'resetPasswordHandle'])->name('password.update');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/', Livewire\Dashboard::class)->name('dashboard');
+        Route::get('configuracoes', Livewire\Config::class)->name('config');
+
+        Route::get('usuarios', Livewire\Users\Index::class)->name('users.index');
+        Route::get('usuarios/editar/{user}', Livewire\Users\Edit::class)->name('users.edit');
+        Route::get('usuarios/adicionar', Livewire\Users\Create::class)->name('users.create');
+
+        Route::get('membros', Livewire\People\Index::class)->name('people.index');
+        Route::get('membros/editar/{person}', Livewire\People\Edit::class)->name('people.edit');
+        Route::get('membros/adicionar', Livewire\People\Create::class)->name('people.create');
+
+        Route::get('cargos-eclesiasticos', Livewire\EcclesiasticalRoles\Index::class)->name('ecclesiasticalRoles.index');
+        Route::get('cargos-eclesiasticos/editar/{ecclesiasticalRole}', Livewire\EcclesiasticalRoles\Edit::class)->name('ecclesiasticalRoles.edit');
+        Route::get('cargos-eclesiasticos/adicionar', Livewire\EcclesiasticalRoles\Create::class)->name('ecclesiasticalRoles.create');
+
+        Route::get('lancamentos', Livewire\FinancialTransactions\Index::class)->name('financialTransactions.index');
+        Route::get('lancamentos/editar/{financialTransaction}', Livewire\FinancialTransactions\Edit::class)->name('financialTransactions.edit');
+        Route::get('lancamentos/adicionar', Livewire\FinancialTransactions\Create::class)->name('financialTransactions.create');
+
+        Route::get('sair', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    });
+});

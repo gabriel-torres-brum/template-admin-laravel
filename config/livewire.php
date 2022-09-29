@@ -85,7 +85,7 @@ return [
 
     'middleware_group' => [
         'web',
-        InitializeTenancyByPath::class,
+        // InitializeTenancyByPath::class,
     ],
 
     /*
